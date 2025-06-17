@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Confluence API Server Startup Script
 # This script properly sets up the environment and starts the server
