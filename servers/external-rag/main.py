@@ -6,7 +6,7 @@ from typing import List
 # --- RAG Libraries ---
 from langchain_community.vectorstores import FAISS
 from sentence_transformers import SentenceTransformer
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 app = FastAPI(
     title="RAG Retriever API",
@@ -38,9 +38,14 @@ EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"  # Widely used, fast
 
 def get_retriever():
     embedder = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
-    vectorstore = FAISS.load_local(VECTORSTORE_PATH, embeddings=embedder)
-    retriever = vectorstore.as_retriever()
-    return retriever
+    try:
+        vectorstore = FAISS.load_local(VECTORSTORE_PATH, embeddings=embedder, allow_dangerous_deserialization=True)
+        retriever = vectorstore.as_retriever()
+        return retriever
+    except (FileNotFoundError, RuntimeError) as e:
+        print(f"Warning: Could not load FAISS index from {VECTORSTORE_PATH}: {e}")
+        print("The /retrieve endpoint will not work until a FAISS index is created.")
+        return None
 
 
 retriever = get_retriever()
@@ -56,6 +61,12 @@ def retrieve_docs(input: RetrievalQueryInput):
     """
     Given a list of user queries, returns top-k retrieved documents per query.
     """
+    if retriever is None:
+        raise HTTPException(
+            status_code=503, 
+            detail=f"FAISS index not available. Please ensure the index exists at {VECTORSTORE_PATH}"
+        )
+    
     try:
         out = []
         for q in input.queries:
