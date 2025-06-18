@@ -1,0 +1,102 @@
+{
+  "Secure Filesystem API_124": {
+    "name": "Secure Filesystem API",
+    "base_url": "http://localhost:8000",
+    "openapi_url": "http://localhost:8000/openapi.json",
+    "description": "A secure file manipulation server for reading, editing, writing, listing, and searching files with access restrictions.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.189042",
+    "status": "online"
+  },
+  "Confluence Cloud REST API v2 Tool Server_1622": {
+    "name": "Confluence Cloud REST API v2 Tool Server",
+    "base_url": "http://localhost:8002",
+    "openapi_url": "http://localhost:8002/openapi.json",
+    "description": "A comprehensive OpenAPI tool server for Confluence Cloud REST API v2 page operations.\n    \n## Authentication\n\nThis server requires Confluence Cloud API authentication. You need:\n\n1. **Base URL**: Your Confluence Cloud instance URL (e.g., `https://your-domain.atlassian.net`)\n2. **Email**: Your Atlassian account email\n3. **API Token**: Generate one at https://id.atlassian.com/manage-profile/security/api-tokens\n\n## Features\n\n- \u2705 **Create Pages**: Create new pages with rich content\n- \u2705 **Read Pages**: Retrieve page content and metadata\n- \u2705 **Update Pages**: Modify existing pages\n- \u2705 **Delete Pages**: Remove pages (with optional purge)\n- \u2705 **List Spaces**: Browse available Confluence spaces\n- \u2705 **List Pages**: Get pages within a space\n- \u2705 **Page Hierarchies**: Support for parent-child page relationships\n- \u2705 **Content Formats**: Support for storage, wiki, and other formats\n- \u2705 **Error Handling**: Comprehensive error responses\n\n## Usage\n\n1. Configure authentication using the `/configure` endpoint\n2. Test connection with `/test-connection`\n3. Use the various page and space operations\n\n## Security\n\n- Uses HTTPS for all API communications\n- API tokens are handled securely\n- No credentials are logged or exposed\n    ",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.197909",
+    "status": "online"
+  },
+  "Git Management API_1631": {
+    "name": "Git Management API",
+    "base_url": "http://localhost:8003",
+    "openapi_url": "http://localhost:8003/openapi.json",
+    "description": "An API to manage Git repositories with explicit endpoints, inputs, and outputs for better OpenAPI schemas.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.205446",
+    "status": "online"
+  },
+  "RAG Retriever API_2485": {
+    "name": "RAG Retriever API",
+    "base_url": "http://localhost:8005",
+    "openapi_url": "http://localhost:8005/openapi.json",
+    "description": "Retrieval-Only API: Queries to vectorstore using LangChain, FAISS, and sentence-transformers.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.211370",
+    "status": "online"
+  },
+  "User Info Proxy API_9491": {
+    "name": "User Info Proxy API",
+    "base_url": "http://localhost:8006",
+    "openapi_url": "http://localhost:8006/openapi.json",
+    "description": "Fetch user details from the internal authentication server.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.217736",
+    "status": "online"
+  },
+  "Summarizing Server_5487": {
+    "name": "Summarizing Server",
+    "base_url": "http://localhost:8007",
+    "openapi_url": "http://localhost:8007/openapi.json",
+    "description": "Leverages an LLM to summarize data",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.223500",
+    "status": "online"
+  },
+  "Secure Time Utilities API_2143": {
+    "name": "Secure Time Utilities API",
+    "base_url": "http://localhost:8008",
+    "openapi_url": "http://localhost:8008/openapi.json",
+    "description": "Provides secure UTC/local time retrieval, formatting, timezone conversion, and comparison.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.228563",
+    "status": "online"
+  },
+  "Weather API_8326": {
+    "name": "Weather API",
+    "base_url": "http://localhost:8009",
+    "openapi_url": "http://localhost:8009/openapi.json",
+    "description": "Provides weather retrieval by latitude and longitude using Open-Meteo.",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.233467",
+    "status": "online"
+  },
+  "Open WebUI_7262": {
+    "name": "Open WebUI",
+    "base_url": "http://localhost:8080",
+    "openapi_url": "http://localhost:8080/openapi.json",
+    "description": "",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.246795",
+    "status": "online"
+  },
+  "MCP Bridge Registry_4368": {
+    "name": "MCP Bridge Registry",
+    "base_url": "http://localhost:9000",
+    "openapi_url": "http://localhost:9000/openapi.json",
+    "description": "Central registry for OpenAPI to MCP bridges",
+    "tags": [],
+    "health_endpoint": "/health",
+    "last_seen": "2025-06-18T13:52:04.252156",
+    "status": "online"
+  }
+}
