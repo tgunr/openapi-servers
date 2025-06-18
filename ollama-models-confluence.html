@@ -1,0 +1,76 @@
+<h1>Ollama Models for OpenAPI/MCP Server Integration</h1>
+
+<p><strong>Date:</strong> June 18, 2025<br/>
+<strong>Location:</strong> Systems/mini/AI/servers</p>
+
+<h2>Current OpenAPI Servers Running</h2>
+
+<p>We have <strong>9 OpenAPI servers</strong> currently active:</p>
+
+<ol>
+<li><strong>Secure Filesystem API</strong> (port 8000) - File manipulation with access restrictions</li>
+<li><strong>Confluence Cloud REST API v2</strong> (port 8002) - Confluence page operations</li>
+<li><strong>Git Management API</strong> (port 8003) - Git repository management</li>
+<li><strong>RAG Retriever API</strong> (port 8005) - Vector store queries using LangChain/FAISS</li>
+<li><strong>User Info Proxy API</strong> (port 8006) - User authentication details</li>
+<li><strong>Summarizing Server</strong> (port 8007) - LLM-based data summarization</li>
+<li><strong>Secure Time Utilities API</strong> (port 8008) - Time/timezone operations</li>
+<li><strong>Weather API</strong> (port 8009) - Weather data via Open-Meteo</li>
+<li><strong>Open WebUI</strong> (port 8080) - Web interface</li>
+</ol>
+
+<h2>Ollama Models with Function Calling Support</h2>
+
+<h3>🏆 <strong>Top Recommendations:</strong></h3>
+
+<ol>
+<li><strong><code>hhao/qwen2.5-coder-tools:latest</code></strong> - Specifically fine-tuned for tool use</li>
+<li><strong><code>llama3.3:latest</code></strong> - Meta's latest with excellent function calling (42 GB)</li>
+<li><strong><code>qwen2.5-coder:latest</code></strong> - Strong tool support and coding abilities (4.7 GB)</li>
+</ol>
+
+<h3>🥈 <strong>Good Options:</strong></h3>
+
+<ol start="4">
+<li><strong><code>deepseek-r1:14b</code></strong> (9.0 GB) or <strong><code>deepseek-r1:32b</code></strong> (19 GB) - Great reasoning + tool use</li>
+<li><strong><code>llama3.1:8b</code></strong> (4.9 GB) - Reliable function calling support</li>
+<li><strong><code>phi4:latest</code></strong> (9.1 GB) - Microsoft's latest with good tool support</li>
+<li><strong><code>gemma3:latest</code></strong> (3.3 GB) - Google's model with function calling</li>
+</ol>
+
+<h3>⚡ <strong>For Quick Testing:</strong></h3>
+
+<ul>
+<li><strong><code>hhao/qwen2.5-coder-tools:0.5b</code></strong> (994 MB) - Fastest, still has tool support</li>
+<li><strong><code>hhao/qwen2.5-coder-tools:1.5b</code></strong> (1.6 GB) - Good balance of speed/capability</li>
+<li><strong><code>hhao/qwen2.5-coder-tools:3b</code></strong> (1.9 GB) - More capability while staying compact</li>
+</ul>
+
+<h3>⚠️ <strong>Limited/Unknown Function Calling:</strong></h3>
+
+<ul>
+<li>Most uncensored variants</li>
+<li>Older models like llama2</li>
+<li>Code-specific models without instruction tuning</li>
+</ul>
+
+<h2>Key Notes</h2>
+
+<ul>
+<li><strong>Function calling support</strong> is essential for OpenAPI/MCP integration</li>
+<li>Models with "tools" in their name are specifically optimized for this use case</li>
+<li>Latest versions from major providers (Meta, Qwen, Google, Microsoft) generally have the best support</li>
+<li>For production use, prioritize the top recommendations</li>
+<li>For development/testing, the smaller tool variants work well</li>
+</ul>
+
+<h2>Next Steps</h2>
+
+<ol>
+<li>Test selected models with MCP bridge integration</li>
+<li>Register servers with MCP Bridge Registry using: <code>python3 discover-servers.py --register</code></li>
+<li>Configure specific model preferences in MCP clients</li>
+</ol>
+
+<p><strong>Note:</strong> This information was generated from live discovery of running OpenAPI servers and analysis of available Ollama models on June 18, 2025.</p>
+
