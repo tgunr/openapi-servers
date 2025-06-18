@@ -147,3 +147,24 @@ class SpaceInfo(BaseModel):
     type: str = Field(description="The type of the space")
     status: str = Field(description="The status of the space")
 
+
+class CreateSpaceRequest(BaseModel):
+    """Request model for creating a space"""
+    key: str = Field(
+        description="The space key (must be unique, alphanumeric, and uppercase)"
+    )
+    name: str = Field(description="The space name")
+    description: Optional[str] = Field(
+        None,
+        description="The space description"
+    )
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "key": "SYSTEMS",
+                "name": "Systems",
+                "description": "A space for system documentation and processes"
+            }
+        }
+
