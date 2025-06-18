@@ -30,8 +30,8 @@ class ConfluenceAPIClient:
             "Content-Type": "application/json"
         }
         
-        # API base URL - use the standard REST API endpoint
-        self.api_base = urljoin(self.base_url, "/wiki/rest/api")
+        # API v2 base URL
+        self.api_base = urljoin(self.base_url, "/wiki/api/v2")
         
         # HTTP client with timeouts
         self.client = httpx.Client(
@@ -75,13 +75,13 @@ class ConfluenceAPIClient:
     def test_connection(self) -> Dict[str, Any]:
         """Test the API connection and authentication"""
         try:
-            url = f"{self.api_base}/space"
+            url = f"{self.api_base}/spaces"
             response = self.client.get(url, params={"limit": 1})
             data = self._handle_response(response)
             return {
                 "success": True,
                 "message": "Connection successful",
-                "api_version": "v1",
+                "api_version": "v2",
                 "base_url": self.base_url
             }
         except ConfluenceError as e:
@@ -93,7 +93,7 @@ class ConfluenceAPIClient:
     
     def get_spaces(self, limit: int = 25) -> List[SpaceInfo]:
         """Get list of spaces"""
-        url = f"{self.api_base}/space"
+        url = f"{self.api_base}/spaces"
         response = self.client.get(url, params={"limit": limit})
         data = self._handle_response(response)
         
@@ -187,39 +187,13 @@ class ConfluenceAPIClient:
                 "value": request.body.value
             }
         
-        # For REST API v1, we need to restructure the data
-        # Convert space ID to space key if needed
-        space_key = request.spaceId
-        if isinstance(request.spaceId, int) or str(request.spaceId).isdigit():
-            # Look up space key by ID
-            spaces = self.get_spaces(limit=250)
-            for space in spaces:
-                if str(space.id) == str(request.spaceId):
-                    space_key = space.key
-                    break
+        logger.info(f"Creating page with data: {body_data}")
         
-        rest_body_data = {
-            "type": "page",
-            "title": request.title,
-            "space": {"key": space_key},
-            "body": {
-                "storage": {
-                    "value": request.body.value if request.body else "",
-                    "representation": "storage"
-                }
-            }
-        }
-        
-        if request.parentId:
-            rest_body_data["ancestors"] = [{"id": str(request.parentId)}]
-        
-        logger.info(f"Creating page with data: {rest_body_data}")
-        
-        url = f"{self.api_base}/content"
-        response = self.client.post(url, json=rest_body_data)
+        url = f"{self.api_base}/pages"
+        response = self.client.post(url, json=body_data, params=params)
         data = self._handle_response(response)
         
-        return self._parse_rest_api_page_response(data)
+        return self._parse_page_response(data)
     
     def get_page(self, page_id: str, include_body: bool = True) -> PageResponse:
         """Get a page by ID"""
