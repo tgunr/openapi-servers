@@ -132,7 +132,7 @@ class ConfluenceAPIClient:
         
         logger.info(f"Creating space with data: {body_data}")
         
-        url = urljoin(self.api_base, "/spaces")
+        url = f"{self.api_base}/spaces"
         response = self.client.post(url, json=body_data)
         data = self._handle_response(response)
         
@@ -197,7 +197,7 @@ class ConfluenceAPIClient:
     
     def get_page(self, page_id: str, include_body: bool = True) -> PageResponse:
         """Get a page by ID"""
-        url = urljoin(self.api_base, f"/pages/{page_id}")
+        url = f"{self.api_base}/pages/{page_id}"
         params = {}
         if include_body:
             params["body-format"] = "storage"
@@ -230,7 +230,7 @@ class ConfluenceAPIClient:
         if request.version.message:
             body_data["version"]["message"] = request.version.message
         
-        url = urljoin(self.api_base, f"/pages/{request.id}")
+        url = f"{self.api_base}/pages/{request.id}"
         response = self.client.put(url, json=body_data)
         data = self._handle_response(response)
         
@@ -238,7 +238,7 @@ class ConfluenceAPIClient:
     
     def delete_page(self, page_id: str, purge: bool = False) -> bool:
         """Delete a page"""
-        url = urljoin(self.api_base, f"/pages/{page_id}")
+        url = f"{self.api_base}/pages/{page_id}"
         params = {}
         if purge:
             params["purge"] = "true"
@@ -257,7 +257,7 @@ class ConfluenceAPIClient:
         include_body: bool = False
     ) -> PageListResponse:
         """Get pages in a space"""
-        url = urljoin(self.api_base, f"/spaces/{space_id}/pages")
+        url = f"{self.api_base}/spaces/{space_id}/pages"
         params = {"limit": limit}
         if include_body:
             params["body-format"] = "storage"
