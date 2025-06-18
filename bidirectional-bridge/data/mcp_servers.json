@@ -1,0 +1,281 @@
+{
+  "mcp_c4206a5f": {
+    "id": "mcp_c4206a5f",
+    "name": "mcp-server-fetch",
+    "command": [
+      "uvx",
+      "mcp-server-fetch"
+    ],
+    "description": "MCP server: mcp-server-fetch",
+    "tools": [
+      {
+        "name": "fetch",
+        "description": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.",
+        "input_schema": {
+          "description": "Parameters for fetching a URL.",
+          "properties": {
+            "url": {
+              "description": "URL to fetch",
+              "format": "uri",
+              "minLength": 1,
+              "title": "Url",
+              "type": "string"
+            },
+            "max_length": {
+              "default": 5000,
+              "description": "Maximum number of characters to return.",
+              "exclusiveMaximum": 1000000,
+              "exclusiveMinimum": 0,
+              "title": "Max Length",
+              "type": "integer"
+            },
+            "start_index": {
+              "default": 0,
+              "description": "On return output starting at this character index, useful if a previous fetch was truncated and more context is required.",
+              "minimum": 0,
+              "title": "Start Index",
+              "type": "integer"
+            },
+            "raw": {
+              "default": false,
+              "description": "Get the actual HTML content of the requested page, without simplification.",
+              "title": "Raw",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "title": "Fetch",
+          "type": "object"
+        }
+      }
+    ],
+    "status": "running",
+    "process_id": null,
+    "last_health_check": "2025-06-18T13:16:16.430717"
+  },
+  "mcp_4a898522": {
+    "id": "mcp_4a898522",
+    "name": "docker-mcp",
+    "command": [
+      "uvx",
+      "docker-mcp"
+    ],
+    "description": "MCP server: docker-mcp",
+    "tools": [
+      {
+        "name": "create-container",
+        "description": "Create a new standalone Docker container",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "ports": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "environment": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "image"
+          ]
+        }
+      },
+      {
+        "name": "deploy-compose",
+        "description": "Deploy a Docker Compose stack",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "compose_yaml": {
+              "type": "string"
+            },
+            "project_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "compose_yaml",
+            "project_name"
+          ]
+        }
+      },
+      {
+        "name": "get-logs",
+        "description": "Retrieve the latest logs for a specified Docker container",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "container_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "container_name"
+          ]
+        }
+      },
+      {
+        "name": "list-containers",
+        "description": "List all Docker containers",
+        "input_schema": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    ],
+    "status": "running",
+    "process_id": null,
+    "last_health_check": "2025-06-18T13:16:16.757307"
+  },
+  "mcp_a29c5e4f": {
+    "id": "mcp_a29c5e4f",
+    "name": "mcp-atlassian",
+    "command": [
+      "uvx",
+      "mcp-atlassian"
+    ],
+    "description": "MCP server: mcp-atlassian",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_08b245d5": {
+    "id": "mcp_08b245d5",
+    "name": "@mcp-get-community-server-macos",
+    "command": [
+      "npx",
+      "-y",
+      "@mcp-get-community/server-macos"
+    ],
+    "description": "MCP server: @mcp-get-community-server-macos",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_3a2aaa52": {
+    "id": "mcp_3a2aaa52",
+    "name": "github",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-github"
+    ],
+    "description": "MCP server: github",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_83260064": {
+    "id": "mcp_83260064",
+    "name": "sequential-thinking",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ],
+    "description": "MCP server: sequential-thinking",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_714f1e7a": {
+    "id": "mcp_714f1e7a",
+    "name": "desktop-commander",
+    "command": [
+      "npx",
+      "@wonderwhy-er/desktop-commander@latest"
+    ],
+    "description": "MCP server: desktop-commander",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_413b4c05": {
+    "id": "mcp_413b4c05",
+    "name": "memory",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ],
+    "description": "MCP server: memory",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_8f4640f9": {
+    "id": "mcp_8f4640f9",
+    "name": "brave-search",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-brave-search"
+    ],
+    "description": "MCP server: brave-search",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_0d6e0d49": {
+    "id": "mcp_0d6e0d49",
+    "name": "openapi-server",
+    "command": [
+      "node",
+      "/Volumes/AI/openapi-servers/bridge/dist/index.js"
+    ],
+    "description": "MCP server: openapi-server",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_df96dfec": {
+    "id": "mcp_df96dfec",
+    "name": "puppeteer",
+    "command": [
+      "npx",
+      "-y",
+      "@modelcontextprotocol/server-puppeteer"
+    ],
+    "description": "MCP server: puppeteer",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  },
+  "mcp_547cbe23": {
+    "id": "mcp_547cbe23",
+    "name": "slop",
+    "command": [
+      "/opt/homebrew/Cellar/node/24.2.0/bin/node",
+      "/Users/davec/.npm/_npx/689a2b38d325547c/node_modules/openapi-mcp-server/index.js",
+      "run"
+    ],
+    "description": "MCP server: slop",
+    "tools": [],
+    "status": "stopped",
+    "process_id": null,
+    "last_health_check": null
+  }
+}

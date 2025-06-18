@@ -1,0 +1,5559 @@
+{
+  "openapi_b6e72a18": {
+    "id": "openapi_b6e72a18",
+    "name": "Secure Filesystem API",
+    "base_url": "http://localhost:8000",
+    "openapi_url": "http://localhost:8000/openapi.json",
+    "description": "A secure file manipulation server for reading, editing, writing, listing, and searching files with access restrictions.",
+    "endpoints": [
+      {
+        "operation_id": "read_file_read_file_post",
+        "path": "/read_file",
+        "method": "POST",
+        "summary": "Read a file",
+        "description": "Read the entire contents of a file and return as JSON.",
+        "parameters": []
+      },
+      {
+        "operation_id": "write_file_write_file_post",
+        "path": "/write_file",
+        "method": "POST",
+        "summary": "Write to a file",
+        "description": "Write content to a file, overwriting if it exists. Returns JSON success message.",
+        "parameters": []
+      },
+      {
+        "operation_id": "edit_file_edit_file_post",
+        "path": "/edit_file",
+        "method": "POST",
+        "summary": "Edit a file with diff",
+        "description": "Apply a list of edits to a text file.\nReturns JSON success message or JSON diff on dry-run.",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_directory_create_directory_post",
+        "path": "/create_directory",
+        "method": "POST",
+        "summary": "Create a directory",
+        "description": "Create a new directory recursively. Returns JSON success message.",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_directory_list_directory_post",
+        "path": "/list_directory",
+        "method": "POST",
+        "summary": "List a directory",
+        "description": "List contents of a directory.",
+        "parameters": []
+      },
+      {
+        "operation_id": "directory_tree_directory_tree_post",
+        "path": "/directory_tree",
+        "method": "POST",
+        "summary": "Recursive directory tree",
+        "description": "Recursively return a tree structure of a directory.",
+        "parameters": []
+      },
+      {
+        "operation_id": "search_files_search_files_post",
+        "path": "/search_files",
+        "method": "POST",
+        "summary": "Search for files",
+        "description": "Search files and directories matching a pattern.",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_path_delete_path_post",
+        "path": "/delete_path",
+        "method": "POST",
+        "summary": "Delete a file or directory (two-step confirmation)",
+        "description": "Delete a specified file or directory using a two-step confirmation process.\n\n1. Initial request (without confirmation_token): Returns a confirmation token.\n2. Confirmation request (with token): Executes the deletion if the token is valid\n   and matches the original request parameters (path, recursive).\n\nUse 'recursive=True' to delete non-empty directories.",
+        "parameters": []
+      },
+      {
+        "operation_id": "move_path_move_path_post",
+        "path": "/move_path",
+        "method": "POST",
+        "summary": "Move or rename a file or directory",
+        "description": "Move or rename a file or directory from source_path to destination_path.\nBoth paths must be within the allowed directories.\nReturns JSON success message.",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_metadata_get_metadata_post",
+        "path": "/get_metadata",
+        "method": "POST",
+        "summary": "Get file or directory metadata",
+        "description": "Retrieve metadata for a specified file or directory path.",
+        "parameters": []
+      },
+      {
+        "operation_id": "search_content_search_content_post",
+        "path": "/search_content",
+        "method": "POST",
+        "summary": "Search for content within files",
+        "description": "Search for text content within files in a specified directory.",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_allowed_directories_list_allowed_directories_get",
+        "path": "/list_allowed_directories",
+        "method": "GET",
+        "summary": "List access-permitted directories",
+        "description": "Show all directories this server can access.",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.840701"
+  },
+  "openapi_a6d7f472": {
+    "id": "openapi_a6d7f472",
+    "name": "Confluence Cloud REST API v2 Tool Server",
+    "base_url": "http://localhost:8002",
+    "openapi_url": "http://localhost:8002/openapi.json",
+    "description": "A comprehensive OpenAPI tool server for Confluence Cloud REST API v2 page operations.\n    \n## Authentication\n\nThis server requires Confluence Cloud API authentication. You need:\n\n1. **Base URL**: Your Confluence Cloud instance URL (e.g., `https://your-domain.atlassian.net`)\n2. **Email**: Your Atlassian account email\n3. **API Token**: Generate one at https://id.atlassian.com/manage-profile/security/api-tokens\n\n## Features\n\n- \u2705 **Create Pages**: Create new pages with rich content\n- \u2705 **Read Pages**: Retrieve page content and metadata\n- \u2705 **Update Pages**: Modify existing pages\n- \u2705 **Delete Pages**: Remove pages (with optional purge)\n- \u2705 **List Spaces**: Browse available Confluence spaces\n- \u2705 **List Pages**: Get pages within a space\n- \u2705 **Page Hierarchies**: Support for parent-child page relationships\n- \u2705 **Content Formats**: Support for storage, wiki, and other formats\n- \u2705 **Error Handling**: Comprehensive error responses\n\n## Usage\n\n1. Configure authentication using the `/configure` endpoint\n2. Test connection with `/test-connection`\n3. Use the various page and space operations\n\n## Security\n\n- Uses HTTPS for all API communications\n- API tokens are handled securely\n- No credentials are logged or exposed\n    ",
+    "endpoints": [
+      {
+        "operation_id": "root__get",
+        "path": "/",
+        "method": "GET",
+        "summary": "Root",
+        "description": "Root endpoint with basic information",
+        "parameters": []
+      },
+      {
+        "operation_id": "health_check_health_get",
+        "path": "/health",
+        "method": "GET",
+        "summary": "Health Check",
+        "description": "Health check endpoint",
+        "parameters": []
+      },
+      {
+        "operation_id": "configure_authentication_configure_post",
+        "path": "/configure",
+        "method": "POST",
+        "summary": "Configure Authentication",
+        "description": "Configure Confluence API authentication",
+        "parameters": []
+      },
+      {
+        "operation_id": "test_connection_test_connection_get",
+        "path": "/test-connection",
+        "method": "GET",
+        "summary": "Test Connection",
+        "description": "Test the Confluence API connection",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_spaces_spaces_get",
+        "path": "/spaces",
+        "method": "GET",
+        "summary": "List Spaces",
+        "description": "List available Confluence spaces",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 25,
+              "title": "Limit"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "create_space_spaces_post",
+        "path": "/spaces",
+        "method": "POST",
+        "summary": "Create Space",
+        "description": "Create a new Confluence space\n\n- **key**: Space key (must be unique, alphanumeric, and uppercase)\n- **name**: Space name\n- **description**: Optional space description",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_space_by_key_spaces__space_key__get",
+        "path": "/spaces/{space_key}",
+        "method": "GET",
+        "summary": "Get Space By Key",
+        "description": "Get space information by space key",
+        "parameters": [
+          {
+            "name": "space_key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Space Key"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "list_pages_in_space_spaces__space_id__pages_get",
+        "path": "/spaces/{space_id}/pages",
+        "method": "GET",
+        "summary": "List Pages In Space",
+        "description": "List pages in a specific space",
+        "parameters": [
+          {
+            "name": "space_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Space Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 25,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "include_body",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Body"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "create_page_pages_post",
+        "path": "/pages",
+        "method": "POST",
+        "summary": "Create Page",
+        "description": "Create a new page in Confluence\n\n- **spaceId**: The ID of the space to create the page in\n- **status**: Page status (current/draft) - pages are published by default\n- **title**: Page title (required for published pages)\n- **parentId**: Parent page ID (optional, creates root-level page if not specified)\n- **body**: Page content in specified format\n- **embedded**: Create as embedded content\n- **private**: Make page private (only creator can view/edit)\n- **root_level**: Create at space root level (ignores parentId)",
+        "parameters": [
+          {
+            "name": "embedded",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Embedded"
+            }
+          },
+          {
+            "name": "private",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Private"
+            }
+          },
+          {
+            "name": "root_level",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Root Level"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_page_pages__page_id__get",
+        "path": "/pages/{page_id}",
+        "method": "GET",
+        "summary": "Get Page",
+        "description": "Get a page by ID",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Page Id"
+            }
+          },
+          {
+            "name": "include_body",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Include Body"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_page_pages__page_id__put",
+        "path": "/pages/{page_id}",
+        "method": "PUT",
+        "summary": "Update Page",
+        "description": "Update an existing page\n\nNote: The version number must be incremented from the current version.\nUse GET /pages/{page_id} to get the current version number first.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Page Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_page_pages__page_id__delete",
+        "path": "/pages/{page_id}",
+        "method": "DELETE",
+        "summary": "Delete Page",
+        "description": "Delete a page\n\n- **purge**: If True, permanently delete the page. If False, move to trash.",
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Page Id"
+            }
+          },
+          {
+            "name": "purge",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Purge"
+            }
+          }
+        ]
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.846937"
+  },
+  "openapi_a55ab21e": {
+    "id": "openapi_a55ab21e",
+    "name": "Git Management API",
+    "base_url": "http://localhost:8003",
+    "openapi_url": "http://localhost:8003/openapi.json",
+    "description": "An API to manage Git repositories with explicit endpoints, inputs, and outputs for better OpenAPI schemas.",
+    "endpoints": [
+      {
+        "operation_id": "get_status_status_post",
+        "path": "/status",
+        "method": "POST",
+        "summary": "Get Status",
+        "description": "Get the current status of the Git repository.",
+        "parameters": []
+      },
+      {
+        "operation_id": "diff_unstaged_diff_unstaged_post",
+        "path": "/diff_unstaged",
+        "method": "POST",
+        "summary": "Diff Unstaged",
+        "description": "Get differences of unstaged changes.",
+        "parameters": []
+      },
+      {
+        "operation_id": "diff_staged_diff_staged_post",
+        "path": "/diff_staged",
+        "method": "POST",
+        "summary": "Diff Staged",
+        "description": "Get differences of staged changes.",
+        "parameters": []
+      },
+      {
+        "operation_id": "diff_target_diff_post",
+        "path": "/diff",
+        "method": "POST",
+        "summary": "Diff Target",
+        "description": "Get comparison between two branches or commits.",
+        "parameters": []
+      },
+      {
+        "operation_id": "commit_changes_commit_post",
+        "path": "/commit",
+        "method": "POST",
+        "summary": "Commit Changes",
+        "description": "Commit staged changes to the repository.",
+        "parameters": []
+      },
+      {
+        "operation_id": "add_files_add_post",
+        "path": "/add",
+        "method": "POST",
+        "summary": "Add Files",
+        "description": "Stage files for commit.",
+        "parameters": []
+      },
+      {
+        "operation_id": "reset_changes_reset_post",
+        "path": "/reset",
+        "method": "POST",
+        "summary": "Reset Changes",
+        "description": "Unstage all staged changes.",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_log_log_post",
+        "path": "/log",
+        "method": "POST",
+        "summary": "Get Log",
+        "description": "Get recent commit history of the repository.",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_branch_create_branch_post",
+        "path": "/create_branch",
+        "method": "POST",
+        "summary": "Create Branch",
+        "description": "Create a new branch.",
+        "parameters": []
+      },
+      {
+        "operation_id": "checkout_branch_checkout_post",
+        "path": "/checkout",
+        "method": "POST",
+        "summary": "Checkout Branch",
+        "description": "Checkout an existing branch.",
+        "parameters": []
+      },
+      {
+        "operation_id": "show_revision_show_post",
+        "path": "/show",
+        "method": "POST",
+        "summary": "Show Revision",
+        "description": "Show details and diff of a specific commit.",
+        "parameters": []
+      },
+      {
+        "operation_id": "init_repo_init_post",
+        "path": "/init",
+        "method": "POST",
+        "summary": "Init Repo",
+        "description": "Initialize a new Git repository.",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.852867"
+  },
+  "openapi_d2d47bb1": {
+    "id": "openapi_d2d47bb1",
+    "name": "RAG Retriever API",
+    "base_url": "http://localhost:8005",
+    "openapi_url": "http://localhost:8005/openapi.json",
+    "description": "Retrieval-Only API: Queries to vectorstore using LangChain, FAISS, and sentence-transformers.",
+    "endpoints": [
+      {
+        "operation_id": "retrieve_docs_retrieve_post",
+        "path": "/retrieve",
+        "method": "POST",
+        "summary": "Retrieve top-k docs for each query",
+        "description": "Given a list of user queries, returns top-k retrieved documents per query.",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.858218"
+  },
+  "openapi_be44139c": {
+    "id": "openapi_be44139c",
+    "name": "User Info Proxy API",
+    "base_url": "http://localhost:8006",
+    "openapi_url": "http://localhost:8006/openapi.json",
+    "description": "Fetch user details from the internal authentication server.",
+    "endpoints": [
+      {
+        "operation_id": "get_session_user_info_get_session_user_info_get",
+        "path": "/get_session_user_info",
+        "method": "GET",
+        "summary": "Forward auth token and retrieve session user details",
+        "description": "Get user info from internal auth service using Authorization Bearer token.",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.863536"
+  },
+  "openapi_33bdf6c7": {
+    "id": "openapi_33bdf6c7",
+    "name": "Summarizing Server",
+    "base_url": "http://localhost:8007",
+    "openapi_url": "http://localhost:8007/openapi.json",
+    "description": "Leverages an LLM to summarize data",
+    "endpoints": [
+      {
+        "operation_id": "summarize_text_summarize_text_post",
+        "path": "/summarize/text",
+        "method": "POST",
+        "summary": "Summarize Text",
+        "description": "",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.868704"
+  },
+  "openapi_3ce6e72b": {
+    "id": "openapi_3ce6e72b",
+    "name": "Secure Time Utilities API",
+    "base_url": "http://localhost:8008",
+    "openapi_url": "http://localhost:8008/openapi.json",
+    "description": "Provides secure UTC/local time retrieval, formatting, timezone conversion, and comparison.",
+    "endpoints": [
+      {
+        "operation_id": "get_current_utc_get_current_utc_time_get",
+        "path": "/get_current_utc_time",
+        "method": "GET",
+        "summary": "Current UTC time",
+        "description": "Returns the current time in UTC in ISO format.",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_current_local_get_current_local_time_get",
+        "path": "/get_current_local_time",
+        "method": "GET",
+        "summary": "Current Local Time",
+        "description": "Returns the current time in local timezone in ISO format.",
+        "parameters": []
+      },
+      {
+        "operation_id": "format_current_time_format_time_post",
+        "path": "/format_time",
+        "method": "POST",
+        "summary": "Format current time",
+        "description": "Return the current time formatted for a specific timezone and format.",
+        "parameters": []
+      },
+      {
+        "operation_id": "convert_time_convert_time_post",
+        "path": "/convert_time",
+        "method": "POST",
+        "summary": "Convert between timezones",
+        "description": "Convert a timestamp from one timezone to another.",
+        "parameters": []
+      },
+      {
+        "operation_id": "elapsed_time_elapsed_time_post",
+        "path": "/elapsed_time",
+        "method": "POST",
+        "summary": "Time elapsed between timestamps",
+        "description": "Calculate the difference between two timestamps in chosen units.",
+        "parameters": []
+      },
+      {
+        "operation_id": "parse_timestamp_parse_timestamp_post",
+        "path": "/parse_timestamp",
+        "method": "POST",
+        "summary": "Parse and normalize timestamps",
+        "description": "Parse human-friendly input timestamp and return standardized UTC ISO time.",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_time_zones_list_time_zones_get",
+        "path": "/list_time_zones",
+        "method": "GET",
+        "summary": "All valid time zones",
+        "description": "Return a list of all valid IANA time zones.",
+        "parameters": []
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.875353"
+  },
+  "openapi_e5d6b6c0": {
+    "id": "openapi_e5d6b6c0",
+    "name": "Weather API",
+    "base_url": "http://localhost:8009",
+    "openapi_url": "http://localhost:8009/openapi.json",
+    "description": "Provides weather retrieval by latitude and longitude using Open-Meteo.",
+    "endpoints": [
+      {
+        "operation_id": "get_weather_forecast_forecast_get",
+        "path": "/forecast",
+        "method": "GET",
+        "summary": "Get current weather and forecast",
+        "description": "Retrieves current weather conditions and hourly forecast data\nfor the specified latitude and longitude using the Open-Meteo API.\nTemperature unit (Celsius/Fahrenheit) is determined automatically based on location.",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "description": "Latitude for the location (e.g., 52.52)",
+              "title": "Latitude"
+            },
+            "description": "Latitude for the location (e.g., 52.52)"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "description": "Longitude for the location (e.g., 13.41)",
+              "title": "Longitude"
+            },
+            "description": "Longitude for the location (e.g., 13.41)"
+          }
+        ]
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.880481"
+  },
+  "openapi_7e2af626": {
+    "id": "openapi_7e2af626",
+    "name": "Open WebUI",
+    "base_url": "http://localhost:8080",
+    "openapi_url": "http://localhost:8080/openapi.json",
+    "description": "",
+    "endpoints": [
+      {
+        "operation_id": "get_status_ollama__get",
+        "path": "/ollama/",
+        "method": "GET",
+        "summary": "Get Status",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_status_ollama__head",
+        "path": "/ollama/",
+        "method": "HEAD",
+        "summary": "Get Status",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "verify_connection_ollama_verify_post",
+        "path": "/ollama/verify",
+        "method": "POST",
+        "summary": "Verify Connection",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_config_ollama_config_get",
+        "path": "/ollama/config",
+        "method": "GET",
+        "summary": "Get Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_config_ollama_config_update_post",
+        "path": "/ollama/config/update",
+        "method": "POST",
+        "summary": "Update Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_ollama_tags_ollama_api_tags__url_idx__get",
+        "path": "/ollama/api/tags/{url_idx}",
+        "method": "GET",
+        "summary": "Get Ollama Tags",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_ollama_tags_ollama_api_tags_get",
+        "path": "/ollama/api/tags",
+        "method": "GET",
+        "summary": "Get Ollama Tags",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_ollama_loaded_models_ollama_api_ps_get",
+        "path": "/ollama/api/ps",
+        "method": "GET",
+        "summary": "Get Ollama Loaded Models",
+        "description": "List models that are currently loaded into Ollama memory, and which node they are loaded on.",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_ollama_versions_ollama_api_version__url_idx__get",
+        "path": "/ollama/api/version/{url_idx}",
+        "method": "GET",
+        "summary": "Get Ollama Versions",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_ollama_versions_ollama_api_version_get",
+        "path": "/ollama/api/version",
+        "method": "GET",
+        "summary": "Get Ollama Versions",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "unload_model_ollama_api_unload_post",
+        "path": "/ollama/api/unload",
+        "method": "POST",
+        "summary": "Unload Model",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "pull_model_ollama_api_pull__url_idx__post",
+        "path": "/ollama/api/pull/{url_idx}",
+        "method": "POST",
+        "summary": "Pull Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "pull_model_ollama_api_pull_post",
+        "path": "/ollama/api/pull",
+        "method": "POST",
+        "summary": "Pull Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "push_model_ollama_api_push__url_idx__delete",
+        "path": "/ollama/api/push/{url_idx}",
+        "method": "DELETE",
+        "summary": "Push Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "push_model_ollama_api_push_delete",
+        "path": "/ollama/api/push",
+        "method": "DELETE",
+        "summary": "Push Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "create_model_ollama_api_create__url_idx__post",
+        "path": "/ollama/api/create/{url_idx}",
+        "method": "POST",
+        "summary": "Create Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "create_model_ollama_api_create_post",
+        "path": "/ollama/api/create",
+        "method": "POST",
+        "summary": "Create Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "copy_model_ollama_api_copy__url_idx__post",
+        "path": "/ollama/api/copy/{url_idx}",
+        "method": "POST",
+        "summary": "Copy Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "copy_model_ollama_api_copy_post",
+        "path": "/ollama/api/copy",
+        "method": "POST",
+        "summary": "Copy Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_model_ollama_api_delete__url_idx__delete",
+        "path": "/ollama/api/delete/{url_idx}",
+        "method": "DELETE",
+        "summary": "Delete Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_model_ollama_api_delete_delete",
+        "path": "/ollama/api/delete",
+        "method": "DELETE",
+        "summary": "Delete Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "show_model_info_ollama_api_show_post",
+        "path": "/ollama/api/show",
+        "method": "POST",
+        "summary": "Show Model Info",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "embed_ollama_api_embed__url_idx__post",
+        "path": "/ollama/api/embed/{url_idx}",
+        "method": "POST",
+        "summary": "Embed",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "embed_ollama_api_embed_post",
+        "path": "/ollama/api/embed",
+        "method": "POST",
+        "summary": "Embed",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "embeddings_ollama_api_embeddings__url_idx__post",
+        "path": "/ollama/api/embeddings/{url_idx}",
+        "method": "POST",
+        "summary": "Embeddings",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "embeddings_ollama_api_embeddings_post",
+        "path": "/ollama/api/embeddings",
+        "method": "POST",
+        "summary": "Embeddings",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_completion_ollama_api_generate__url_idx__post",
+        "path": "/ollama/api/generate/{url_idx}",
+        "method": "POST",
+        "summary": "Generate Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_completion_ollama_api_generate_post",
+        "path": "/ollama/api/generate",
+        "method": "POST",
+        "summary": "Generate Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_chat_completion_ollama_api_chat__url_idx__post",
+        "path": "/ollama/api/chat/{url_idx}",
+        "method": "POST",
+        "summary": "Generate Chat Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          },
+          {
+            "name": "bypass_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Bypass Filter"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_chat_completion_ollama_api_chat_post",
+        "path": "/ollama/api/chat",
+        "method": "POST",
+        "summary": "Generate Chat Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          },
+          {
+            "name": "bypass_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Bypass Filter"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_openai_completion_ollama_v1_completions__url_idx__post",
+        "path": "/ollama/v1/completions/{url_idx}",
+        "method": "POST",
+        "summary": "Generate Openai Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_openai_completion_ollama_v1_completions_post",
+        "path": "/ollama/v1/completions",
+        "method": "POST",
+        "summary": "Generate Openai Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_openai_chat_completion_ollama_v1_chat_completions__url_idx__post",
+        "path": "/ollama/v1/chat/completions/{url_idx}",
+        "method": "POST",
+        "summary": "Generate Openai Chat Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "generate_openai_chat_completion_ollama_v1_chat_completions_post",
+        "path": "/ollama/v1/chat/completions",
+        "method": "POST",
+        "summary": "Generate Openai Chat Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_openai_models_ollama_v1_models__url_idx__get",
+        "path": "/ollama/v1/models/{url_idx}",
+        "method": "GET",
+        "summary": "Get Openai Models",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_openai_models_ollama_v1_models_get",
+        "path": "/ollama/v1/models",
+        "method": "GET",
+        "summary": "Get Openai Models",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "download_model_ollama_models_download__url_idx__post",
+        "path": "/ollama/models/download/{url_idx}",
+        "method": "POST",
+        "summary": "Download Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "download_model_ollama_models_download_post",
+        "path": "/ollama/models/download",
+        "method": "POST",
+        "summary": "Download Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "upload_model_ollama_models_upload__url_idx__post",
+        "path": "/ollama/models/upload/{url_idx}",
+        "method": "POST",
+        "summary": "Upload Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "upload_model_ollama_models_upload_post",
+        "path": "/ollama/models/upload",
+        "method": "POST",
+        "summary": "Upload Model",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_config_openai_config_get",
+        "path": "/openai/config",
+        "method": "GET",
+        "summary": "Get Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_config_openai_config_update_post",
+        "path": "/openai/config/update",
+        "method": "POST",
+        "summary": "Update Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "speech_openai_audio_speech_post",
+        "path": "/openai/audio/speech",
+        "method": "POST",
+        "summary": "Speech",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_models_openai_models__url_idx__get",
+        "path": "/openai/models/{url_idx}",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_models_openai_models_get",
+        "path": "/openai/models",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": [
+          {
+            "name": "url_idx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Url Idx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "verify_connection_openai_verify_post",
+        "path": "/openai/verify",
+        "method": "POST",
+        "summary": "Verify Connection",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_chat_completion_openai_chat_completions_post",
+        "path": "/openai/chat/completions",
+        "method": "POST",
+        "summary": "Generate Chat Completion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "bypass_filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Bypass Filter"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "proxy_openai__path__put",
+        "path": "/openai/{path}",
+        "method": "PUT",
+        "summary": "Proxy",
+        "description": "Deprecated: proxy all requests to OpenAI API",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "proxy_openai__path__put",
+        "path": "/openai/{path}",
+        "method": "POST",
+        "summary": "Proxy",
+        "description": "Deprecated: proxy all requests to OpenAI API",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "proxy_openai__path__put",
+        "path": "/openai/{path}",
+        "method": "GET",
+        "summary": "Proxy",
+        "description": "Deprecated: proxy all requests to OpenAI API",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "proxy_openai__path__put",
+        "path": "/openai/{path}",
+        "method": "DELETE",
+        "summary": "Proxy",
+        "description": "Deprecated: proxy all requests to OpenAI API",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_pipelines_list_api_v1_pipelines_list_get",
+        "path": "/api/v1/pipelines/list",
+        "method": "GET",
+        "summary": "Get Pipelines List",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "upload_pipeline_api_v1_pipelines_upload_post",
+        "path": "/api/v1/pipelines/upload",
+        "method": "POST",
+        "summary": "Upload Pipeline",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "add_pipeline_api_v1_pipelines_add_post",
+        "path": "/api/v1/pipelines/add",
+        "method": "POST",
+        "summary": "Add Pipeline",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_pipeline_api_v1_pipelines_delete_delete",
+        "path": "/api/v1/pipelines/delete",
+        "method": "DELETE",
+        "summary": "Delete Pipeline",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_pipelines_api_v1_pipelines__get",
+        "path": "/api/v1/pipelines/",
+        "method": "GET",
+        "summary": "Get Pipelines",
+        "description": "",
+        "parameters": [
+          {
+            "name": "urlIdx",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Urlidx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_pipeline_valves_api_v1_pipelines__pipeline_id__valves_get",
+        "path": "/api/v1/pipelines/{pipeline_id}/valves",
+        "method": "GET",
+        "summary": "Get Pipeline Valves",
+        "description": "",
+        "parameters": [
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pipeline Id"
+            }
+          },
+          {
+            "name": "urlIdx",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Urlidx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_pipeline_valves_spec_api_v1_pipelines__pipeline_id__valves_spec_get",
+        "path": "/api/v1/pipelines/{pipeline_id}/valves/spec",
+        "method": "GET",
+        "summary": "Get Pipeline Valves Spec",
+        "description": "",
+        "parameters": [
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pipeline Id"
+            }
+          },
+          {
+            "name": "urlIdx",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Urlidx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_pipeline_valves_api_v1_pipelines__pipeline_id__valves_update_post",
+        "path": "/api/v1/pipelines/{pipeline_id}/valves/update",
+        "method": "POST",
+        "summary": "Update Pipeline Valves",
+        "description": "",
+        "parameters": [
+          {
+            "name": "pipeline_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pipeline Id"
+            }
+          },
+          {
+            "name": "urlIdx",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Urlidx"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_task_config_api_v1_tasks_config_get",
+        "path": "/api/v1/tasks/config",
+        "method": "GET",
+        "summary": "Get Task Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_task_config_api_v1_tasks_config_update_post",
+        "path": "/api/v1/tasks/config/update",
+        "method": "POST",
+        "summary": "Update Task Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_title_api_v1_tasks_title_completions_post",
+        "path": "/api/v1/tasks/title/completions",
+        "method": "POST",
+        "summary": "Generate Title",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_follow_ups_api_v1_tasks_follow_up_completions_post",
+        "path": "/api/v1/tasks/follow_up/completions",
+        "method": "POST",
+        "summary": "Generate Follow Ups",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_chat_tags_api_v1_tasks_tags_completions_post",
+        "path": "/api/v1/tasks/tags/completions",
+        "method": "POST",
+        "summary": "Generate Chat Tags",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_image_prompt_api_v1_tasks_image_prompt_completions_post",
+        "path": "/api/v1/tasks/image_prompt/completions",
+        "method": "POST",
+        "summary": "Generate Image Prompt",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_queries_api_v1_tasks_queries_completions_post",
+        "path": "/api/v1/tasks/queries/completions",
+        "method": "POST",
+        "summary": "Generate Queries",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_autocompletion_api_v1_tasks_auto_completions_post",
+        "path": "/api/v1/tasks/auto/completions",
+        "method": "POST",
+        "summary": "Generate Autocompletion",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_emoji_api_v1_tasks_emoji_completions_post",
+        "path": "/api/v1/tasks/emoji/completions",
+        "method": "POST",
+        "summary": "Generate Emoji",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_moa_response_api_v1_tasks_moa_completions_post",
+        "path": "/api/v1/tasks/moa/completions",
+        "method": "POST",
+        "summary": "Generate Moa Response",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_config_api_v1_images_config_get",
+        "path": "/api/v1/images/config",
+        "method": "GET",
+        "summary": "Get Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_config_api_v1_images_config_update_post",
+        "path": "/api/v1/images/config/update",
+        "method": "POST",
+        "summary": "Update Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "verify_url_api_v1_images_config_url_verify_get",
+        "path": "/api/v1/images/config/url/verify",
+        "method": "GET",
+        "summary": "Verify Url",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_image_config_api_v1_images_image_config_get",
+        "path": "/api/v1/images/image/config",
+        "method": "GET",
+        "summary": "Get Image Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_image_config_api_v1_images_image_config_update_post",
+        "path": "/api/v1/images/image/config/update",
+        "method": "POST",
+        "summary": "Update Image Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_models_api_v1_images_models_get",
+        "path": "/api/v1/images/models",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "image_generations_api_v1_images_generations_post",
+        "path": "/api/v1/images/generations",
+        "method": "POST",
+        "summary": "Image Generations",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_audio_config_api_v1_audio_config_get",
+        "path": "/api/v1/audio/config",
+        "method": "GET",
+        "summary": "Get Audio Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_audio_config_api_v1_audio_config_update_post",
+        "path": "/api/v1/audio/config/update",
+        "method": "POST",
+        "summary": "Update Audio Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "speech_api_v1_audio_speech_post",
+        "path": "/api/v1/audio/speech",
+        "method": "POST",
+        "summary": "Speech",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "transcription_api_v1_audio_transcriptions_post",
+        "path": "/api/v1/audio/transcriptions",
+        "method": "POST",
+        "summary": "Transcription",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_models_api_v1_audio_models_get",
+        "path": "/api/v1/audio/models",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_voices_api_v1_audio_voices_get",
+        "path": "/api/v1/audio/voices",
+        "method": "GET",
+        "summary": "Get Voices",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_status_api_v1_retrieval__get",
+        "path": "/api/v1/retrieval/",
+        "method": "GET",
+        "summary": "Get Status",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_embedding_config_api_v1_retrieval_embedding_get",
+        "path": "/api/v1/retrieval/embedding",
+        "method": "GET",
+        "summary": "Get Embedding Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_embedding_config_api_v1_retrieval_embedding_update_post",
+        "path": "/api/v1/retrieval/embedding/update",
+        "method": "POST",
+        "summary": "Update Embedding Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_rag_config_api_v1_retrieval_config_get",
+        "path": "/api/v1/retrieval/config",
+        "method": "GET",
+        "summary": "Get Rag Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_rag_config_api_v1_retrieval_config_update_post",
+        "path": "/api/v1/retrieval/config/update",
+        "method": "POST",
+        "summary": "Update Rag Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "process_file_api_v1_retrieval_process_file_post",
+        "path": "/api/v1/retrieval/process/file",
+        "method": "POST",
+        "summary": "Process File",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "process_text_api_v1_retrieval_process_text_post",
+        "path": "/api/v1/retrieval/process/text",
+        "method": "POST",
+        "summary": "Process Text",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "process_youtube_video_api_v1_retrieval_process_youtube_post",
+        "path": "/api/v1/retrieval/process/youtube",
+        "method": "POST",
+        "summary": "Process Youtube Video",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "process_web_api_v1_retrieval_process_web_post",
+        "path": "/api/v1/retrieval/process/web",
+        "method": "POST",
+        "summary": "Process Web",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "process_web_search_api_v1_retrieval_process_web_search_post",
+        "path": "/api/v1/retrieval/process/web/search",
+        "method": "POST",
+        "summary": "Process Web Search",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "query_doc_handler_api_v1_retrieval_query_doc_post",
+        "path": "/api/v1/retrieval/query/doc",
+        "method": "POST",
+        "summary": "Query Doc Handler",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "query_collection_handler_api_v1_retrieval_query_collection_post",
+        "path": "/api/v1/retrieval/query/collection",
+        "method": "POST",
+        "summary": "Query Collection Handler",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_entries_from_collection_api_v1_retrieval_delete_post",
+        "path": "/api/v1/retrieval/delete",
+        "method": "POST",
+        "summary": "Delete Entries From Collection",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "reset_vector_db_api_v1_retrieval_reset_db_post",
+        "path": "/api/v1/retrieval/reset/db",
+        "method": "POST",
+        "summary": "Reset Vector Db",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "reset_upload_dir_api_v1_retrieval_reset_uploads_post",
+        "path": "/api/v1/retrieval/reset/uploads",
+        "method": "POST",
+        "summary": "Reset Upload Dir",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_embeddings_api_v1_retrieval_ef__text__get",
+        "path": "/api/v1/retrieval/ef/{text}",
+        "method": "GET",
+        "summary": "Get Embeddings",
+        "description": "",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Text"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "process_files_batch_api_v1_retrieval_process_files_batch_post",
+        "path": "/api/v1/retrieval/process/files/batch",
+        "method": "POST",
+        "summary": "Process Files Batch",
+        "description": "Process a batch of files and save them to the vector database.",
+        "parameters": []
+      },
+      {
+        "operation_id": "import_config_api_v1_configs_import_post",
+        "path": "/api/v1/configs/import",
+        "method": "POST",
+        "summary": "Import Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "export_config_api_v1_configs_export_get",
+        "path": "/api/v1/configs/export",
+        "method": "GET",
+        "summary": "Export Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_direct_connections_config_api_v1_configs_direct_connections_get",
+        "path": "/api/v1/configs/direct_connections",
+        "method": "GET",
+        "summary": "Get Direct Connections Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_direct_connections_config_api_v1_configs_direct_connections_post",
+        "path": "/api/v1/configs/direct_connections",
+        "method": "POST",
+        "summary": "Set Direct Connections Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_tool_servers_config_api_v1_configs_tool_servers_get",
+        "path": "/api/v1/configs/tool_servers",
+        "method": "GET",
+        "summary": "Get Tool Servers Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_tool_servers_config_api_v1_configs_tool_servers_post",
+        "path": "/api/v1/configs/tool_servers",
+        "method": "POST",
+        "summary": "Set Tool Servers Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "verify_tool_servers_config_api_v1_configs_tool_servers_verify_post",
+        "path": "/api/v1/configs/tool_servers/verify",
+        "method": "POST",
+        "summary": "Verify Tool Servers Config",
+        "description": "Verify the connection to the tool server.",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_code_execution_config_api_v1_configs_code_execution_get",
+        "path": "/api/v1/configs/code_execution",
+        "method": "GET",
+        "summary": "Get Code Execution Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_code_execution_config_api_v1_configs_code_execution_post",
+        "path": "/api/v1/configs/code_execution",
+        "method": "POST",
+        "summary": "Set Code Execution Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_models_config_api_v1_configs_models_get",
+        "path": "/api/v1/configs/models",
+        "method": "GET",
+        "summary": "Get Models Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_models_config_api_v1_configs_models_post",
+        "path": "/api/v1/configs/models",
+        "method": "POST",
+        "summary": "Set Models Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_default_suggestions_api_v1_configs_suggestions_post",
+        "path": "/api/v1/configs/suggestions",
+        "method": "POST",
+        "summary": "Set Default Suggestions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_banners_api_v1_configs_banners_get",
+        "path": "/api/v1/configs/banners",
+        "method": "GET",
+        "summary": "Get Banners",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "set_banners_api_v1_configs_banners_post",
+        "path": "/api/v1/configs/banners",
+        "method": "POST",
+        "summary": "Set Banners",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_session_user_api_v1_auths__get",
+        "path": "/api/v1/auths/",
+        "method": "GET",
+        "summary": "Get Session User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_profile_api_v1_auths_update_profile_post",
+        "path": "/api/v1/auths/update/profile",
+        "method": "POST",
+        "summary": "Update Profile",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_password_api_v1_auths_update_password_post",
+        "path": "/api/v1/auths/update/password",
+        "method": "POST",
+        "summary": "Update Password",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "ldap_auth_api_v1_auths_ldap_post",
+        "path": "/api/v1/auths/ldap",
+        "method": "POST",
+        "summary": "Ldap Auth",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "signin_api_v1_auths_signin_post",
+        "path": "/api/v1/auths/signin",
+        "method": "POST",
+        "summary": "Signin",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "signup_api_v1_auths_signup_post",
+        "path": "/api/v1/auths/signup",
+        "method": "POST",
+        "summary": "Signup",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "signout_api_v1_auths_signout_get",
+        "path": "/api/v1/auths/signout",
+        "method": "GET",
+        "summary": "Signout",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "add_user_api_v1_auths_add_post",
+        "path": "/api/v1/auths/add",
+        "method": "POST",
+        "summary": "Add User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_admin_details_api_v1_auths_admin_details_get",
+        "path": "/api/v1/auths/admin/details",
+        "method": "GET",
+        "summary": "Get Admin Details",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_admin_config_api_v1_auths_admin_config_get",
+        "path": "/api/v1/auths/admin/config",
+        "method": "GET",
+        "summary": "Get Admin Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_admin_config_api_v1_auths_admin_config_post",
+        "path": "/api/v1/auths/admin/config",
+        "method": "POST",
+        "summary": "Update Admin Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_ldap_server_api_v1_auths_admin_config_ldap_server_get",
+        "path": "/api/v1/auths/admin/config/ldap/server",
+        "method": "GET",
+        "summary": "Get Ldap Server",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_ldap_server_api_v1_auths_admin_config_ldap_server_post",
+        "path": "/api/v1/auths/admin/config/ldap/server",
+        "method": "POST",
+        "summary": "Update Ldap Server",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_ldap_config_api_v1_auths_admin_config_ldap_get",
+        "path": "/api/v1/auths/admin/config/ldap",
+        "method": "GET",
+        "summary": "Get Ldap Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_ldap_config_api_v1_auths_admin_config_ldap_post",
+        "path": "/api/v1/auths/admin/config/ldap",
+        "method": "POST",
+        "summary": "Update Ldap Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_api_key_api_v1_auths_api_key_get",
+        "path": "/api/v1/auths/api_key",
+        "method": "GET",
+        "summary": "Get Api Key",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "generate_api_key_api_v1_auths_api_key_post",
+        "path": "/api/v1/auths/api_key",
+        "method": "POST",
+        "summary": "Generate Api Key",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_api_key_api_v1_auths_api_key_delete",
+        "path": "/api/v1/auths/api_key",
+        "method": "DELETE",
+        "summary": "Delete Api Key",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_users_api_v1_users__get",
+        "path": "/api/v1/users/",
+        "method": "GET",
+        "summary": "Get Users",
+        "description": "",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Order By"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Direction"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 1,
+              "title": "Page"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_all_users_api_v1_users_all_get",
+        "path": "/api/v1/users/all",
+        "method": "GET",
+        "summary": "Get All Users",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_groups_api_v1_users_groups_get",
+        "path": "/api/v1/users/groups",
+        "method": "GET",
+        "summary": "Get User Groups",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_permissisions_api_v1_users_permissions_get",
+        "path": "/api/v1/users/permissions",
+        "method": "GET",
+        "summary": "Get User Permissisions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_default_user_permissions_api_v1_users_default_permissions_get",
+        "path": "/api/v1/users/default/permissions",
+        "method": "GET",
+        "summary": "Get Default User Permissions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_default_user_permissions_api_v1_users_default_permissions_post",
+        "path": "/api/v1/users/default/permissions",
+        "method": "POST",
+        "summary": "Update Default User Permissions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_settings_by_session_user_api_v1_users_user_settings_get",
+        "path": "/api/v1/users/user/settings",
+        "method": "GET",
+        "summary": "Get User Settings By Session User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_user_settings_by_session_user_api_v1_users_user_settings_update_post",
+        "path": "/api/v1/users/user/settings/update",
+        "method": "POST",
+        "summary": "Update User Settings By Session User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_info_by_session_user_api_v1_users_user_info_get",
+        "path": "/api/v1/users/user/info",
+        "method": "GET",
+        "summary": "Get User Info By Session User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_user_info_by_session_user_api_v1_users_user_info_update_post",
+        "path": "/api/v1/users/user/info/update",
+        "method": "POST",
+        "summary": "Update User Info By Session User",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_by_id_api_v1_users__user_id__get",
+        "path": "/api/v1/users/{user_id}",
+        "method": "GET",
+        "summary": "Get User By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_user_by_id_api_v1_users__user_id__delete",
+        "path": "/api/v1/users/{user_id}",
+        "method": "DELETE",
+        "summary": "Delete User By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_user_by_id_api_v1_users__user_id__update_post",
+        "path": "/api/v1/users/{user_id}/update",
+        "method": "POST",
+        "summary": "Update User By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_channels_api_v1_channels__get",
+        "path": "/api/v1/channels/",
+        "method": "GET",
+        "summary": "Get Channels",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_channel_api_v1_channels_create_post",
+        "path": "/api/v1/channels/create",
+        "method": "POST",
+        "summary": "Create New Channel",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_channel_by_id_api_v1_channels__id__get",
+        "path": "/api/v1/channels/{id}",
+        "method": "GET",
+        "summary": "Get Channel By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_channel_by_id_api_v1_channels__id__update_post",
+        "path": "/api/v1/channels/{id}/update",
+        "method": "POST",
+        "summary": "Update Channel By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_channel_by_id_api_v1_channels__id__delete_delete",
+        "path": "/api/v1/channels/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Channel By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_channel_messages_api_v1_channels__id__messages_get",
+        "path": "/api/v1/channels/{id}/messages",
+        "method": "GET",
+        "summary": "Get Channel Messages",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "post_new_message_api_v1_channels__id__messages_post_post",
+        "path": "/api/v1/channels/{id}/messages/post",
+        "method": "POST",
+        "summary": "Post New Message",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_channel_message_api_v1_channels__id__messages__message_id__get",
+        "path": "/api/v1/channels/{id}/messages/{message_id}",
+        "method": "GET",
+        "summary": "Get Channel Message",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_channel_thread_messages_api_v1_channels__id__messages__message_id__thread_get",
+        "path": "/api/v1/channels/{id}/messages/{message_id}/thread",
+        "method": "GET",
+        "summary": "Get Channel Thread Messages",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_message_by_id_api_v1_channels__id__messages__message_id__update_post",
+        "path": "/api/v1/channels/{id}/messages/{message_id}/update",
+        "method": "POST",
+        "summary": "Update Message By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "add_reaction_to_message_api_v1_channels__id__messages__message_id__reactions_add_post",
+        "path": "/api/v1/channels/{id}/messages/{message_id}/reactions/add",
+        "method": "POST",
+        "summary": "Add Reaction To Message",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "remove_reaction_by_id_and_user_id_and_name_api_v1_channels__id__messages__message_id__reactions_remove_post",
+        "path": "/api/v1/channels/{id}/messages/{message_id}/reactions/remove",
+        "method": "POST",
+        "summary": "Remove Reaction By Id And User Id And Name",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_message_by_id_api_v1_channels__id__messages__message_id__delete_delete",
+        "path": "/api/v1/channels/{id}/messages/{message_id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Message By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_session_user_chat_list_api_v1_chats_list_get",
+        "path": "/api/v1/chats/list",
+        "method": "GET",
+        "summary": "Get Session User Chat List",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_session_user_chat_list_api_v1_chats__get",
+        "path": "/api/v1/chats/",
+        "method": "GET",
+        "summary": "Get Session User Chat List",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_all_user_chats_api_v1_chats__delete",
+        "path": "/api/v1/chats/",
+        "method": "DELETE",
+        "summary": "Delete All User Chats",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_chat_list_by_user_id_api_v1_chats_list_user__user_id__get",
+        "path": "/api/v1/chats/list/user/{user_id}",
+        "method": "GET",
+        "summary": "Get User Chat List By User Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Order By"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Direction"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "create_new_chat_api_v1_chats_new_post",
+        "path": "/api/v1/chats/new",
+        "method": "POST",
+        "summary": "Create New Chat",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "import_chat_api_v1_chats_import_post",
+        "path": "/api/v1/chats/import",
+        "method": "POST",
+        "summary": "Import Chat",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "search_user_chats_api_v1_chats_search_get",
+        "path": "/api/v1/chats/search",
+        "method": "GET",
+        "summary": "Search User Chats",
+        "description": "",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Text"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_chats_by_folder_id_api_v1_chats_folder__folder_id__get",
+        "path": "/api/v1/chats/folder/{folder_id}",
+        "method": "GET",
+        "summary": "Get Chats By Folder Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Folder Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_user_pinned_chats_api_v1_chats_pinned_get",
+        "path": "/api/v1/chats/pinned",
+        "method": "GET",
+        "summary": "Get User Pinned Chats",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_chats_api_v1_chats_all_get",
+        "path": "/api/v1/chats/all",
+        "method": "GET",
+        "summary": "Get User Chats",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_user_archived_chats_api_v1_chats_all_archived_get",
+        "path": "/api/v1/chats/all/archived",
+        "method": "GET",
+        "summary": "Get User Archived Chats",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_all_user_tags_api_v1_chats_all_tags_get",
+        "path": "/api/v1/chats/all/tags",
+        "method": "GET",
+        "summary": "Get All User Tags",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_all_user_chats_in_db_api_v1_chats_all_db_get",
+        "path": "/api/v1/chats/all/db",
+        "method": "GET",
+        "summary": "Get All User Chats In Db",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_archived_session_user_chat_list_api_v1_chats_archived_get",
+        "path": "/api/v1/chats/archived",
+        "method": "GET",
+        "summary": "Get Archived Session User Chat List",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Order By"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Direction"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "archive_all_chats_api_v1_chats_archive_all_post",
+        "path": "/api/v1/chats/archive/all",
+        "method": "POST",
+        "summary": "Archive All Chats",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_shared_chat_by_id_api_v1_chats_share__share_id__get",
+        "path": "/api/v1/chats/share/{share_id}",
+        "method": "GET",
+        "summary": "Get Shared Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "share_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Share Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_user_chat_list_by_tag_name_api_v1_chats_tags_post",
+        "path": "/api/v1/chats/tags",
+        "method": "POST",
+        "summary": "Get User Chat List By Tag Name",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_chat_by_id_api_v1_chats__id__get",
+        "path": "/api/v1/chats/{id}",
+        "method": "GET",
+        "summary": "Get Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_chat_by_id_api_v1_chats__id__post",
+        "path": "/api/v1/chats/{id}",
+        "method": "POST",
+        "summary": "Update Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_chat_by_id_api_v1_chats__id__delete",
+        "path": "/api/v1/chats/{id}",
+        "method": "DELETE",
+        "summary": "Delete Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_chat_message_by_id_api_v1_chats__id__messages__message_id__post",
+        "path": "/api/v1/chats/{id}/messages/{message_id}",
+        "method": "POST",
+        "summary": "Update Chat Message By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "send_chat_message_event_by_id_api_v1_chats__id__messages__message_id__event_post",
+        "path": "/api/v1/chats/{id}/messages/{message_id}/event",
+        "method": "POST",
+        "summary": "Send Chat Message Event By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_pinned_status_by_id_api_v1_chats__id__pinned_get",
+        "path": "/api/v1/chats/{id}/pinned",
+        "method": "GET",
+        "summary": "Get Pinned Status By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "pin_chat_by_id_api_v1_chats__id__pin_post",
+        "path": "/api/v1/chats/{id}/pin",
+        "method": "POST",
+        "summary": "Pin Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "clone_chat_by_id_api_v1_chats__id__clone_post",
+        "path": "/api/v1/chats/{id}/clone",
+        "method": "POST",
+        "summary": "Clone Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "clone_shared_chat_by_id_api_v1_chats__id__clone_shared_post",
+        "path": "/api/v1/chats/{id}/clone/shared",
+        "method": "POST",
+        "summary": "Clone Shared Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "archive_chat_by_id_api_v1_chats__id__archive_post",
+        "path": "/api/v1/chats/{id}/archive",
+        "method": "POST",
+        "summary": "Archive Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "share_chat_by_id_api_v1_chats__id__share_post",
+        "path": "/api/v1/chats/{id}/share",
+        "method": "POST",
+        "summary": "Share Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_shared_chat_by_id_api_v1_chats__id__share_delete",
+        "path": "/api/v1/chats/{id}/share",
+        "method": "DELETE",
+        "summary": "Delete Shared Chat By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_chat_folder_id_by_id_api_v1_chats__id__folder_post",
+        "path": "/api/v1/chats/{id}/folder",
+        "method": "POST",
+        "summary": "Update Chat Folder Id By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_chat_tags_by_id_api_v1_chats__id__tags_get",
+        "path": "/api/v1/chats/{id}/tags",
+        "method": "GET",
+        "summary": "Get Chat Tags By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "add_tag_by_id_and_tag_name_api_v1_chats__id__tags_post",
+        "path": "/api/v1/chats/{id}/tags",
+        "method": "POST",
+        "summary": "Add Tag By Id And Tag Name",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_tag_by_id_and_tag_name_api_v1_chats__id__tags_delete",
+        "path": "/api/v1/chats/{id}/tags",
+        "method": "DELETE",
+        "summary": "Delete Tag By Id And Tag Name",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_all_tags_by_id_api_v1_chats__id__tags_all_delete",
+        "path": "/api/v1/chats/{id}/tags/all",
+        "method": "DELETE",
+        "summary": "Delete All Tags By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_notes_api_v1_notes__get",
+        "path": "/api/v1/notes/",
+        "method": "GET",
+        "summary": "Get Notes",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_note_list_api_v1_notes_list_get",
+        "path": "/api/v1/notes/list",
+        "method": "GET",
+        "summary": "Get Note List",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_note_api_v1_notes_create_post",
+        "path": "/api/v1/notes/create",
+        "method": "POST",
+        "summary": "Create New Note",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_note_by_id_api_v1_notes__id__get",
+        "path": "/api/v1/notes/{id}",
+        "method": "GET",
+        "summary": "Get Note By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_note_by_id_api_v1_notes__id__update_post",
+        "path": "/api/v1/notes/{id}/update",
+        "method": "POST",
+        "summary": "Update Note By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_note_by_id_api_v1_notes__id__delete_delete",
+        "path": "/api/v1/notes/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Note By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_models_api_v1_models__get",
+        "path": "/api/v1/models/",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_base_models_api_v1_models_base_get",
+        "path": "/api/v1/models/base",
+        "method": "GET",
+        "summary": "Get Base Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_model_api_v1_models_create_post",
+        "path": "/api/v1/models/create",
+        "method": "POST",
+        "summary": "Create New Model",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_model_by_id_api_v1_models_model_get",
+        "path": "/api/v1/models/model",
+        "method": "GET",
+        "summary": "Get Model By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "toggle_model_by_id_api_v1_models_model_toggle_post",
+        "path": "/api/v1/models/model/toggle",
+        "method": "POST",
+        "summary": "Toggle Model By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_model_by_id_api_v1_models_model_update_post",
+        "path": "/api/v1/models/model/update",
+        "method": "POST",
+        "summary": "Update Model By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_model_by_id_api_v1_models_model_delete_delete",
+        "path": "/api/v1/models/model/delete",
+        "method": "DELETE",
+        "summary": "Delete Model By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_all_models_api_v1_models_delete_all_delete",
+        "path": "/api/v1/models/delete/all",
+        "method": "DELETE",
+        "summary": "Delete All Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_knowledge_api_v1_knowledge__get",
+        "path": "/api/v1/knowledge/",
+        "method": "GET",
+        "summary": "Get Knowledge",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_knowledge_list_api_v1_knowledge_list_get",
+        "path": "/api/v1/knowledge/list",
+        "method": "GET",
+        "summary": "Get Knowledge List",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_knowledge_api_v1_knowledge_create_post",
+        "path": "/api/v1/knowledge/create",
+        "method": "POST",
+        "summary": "Create New Knowledge",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "reindex_knowledge_files_api_v1_knowledge_reindex_post",
+        "path": "/api/v1/knowledge/reindex",
+        "method": "POST",
+        "summary": "Reindex Knowledge Files",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_knowledge_by_id_api_v1_knowledge__id__get",
+        "path": "/api/v1/knowledge/{id}",
+        "method": "GET",
+        "summary": "Get Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_knowledge_by_id_api_v1_knowledge__id__update_post",
+        "path": "/api/v1/knowledge/{id}/update",
+        "method": "POST",
+        "summary": "Update Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "add_file_to_knowledge_by_id_api_v1_knowledge__id__file_add_post",
+        "path": "/api/v1/knowledge/{id}/file/add",
+        "method": "POST",
+        "summary": "Add File To Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_file_from_knowledge_by_id_api_v1_knowledge__id__file_update_post",
+        "path": "/api/v1/knowledge/{id}/file/update",
+        "method": "POST",
+        "summary": "Update File From Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "remove_file_from_knowledge_by_id_api_v1_knowledge__id__file_remove_post",
+        "path": "/api/v1/knowledge/{id}/file/remove",
+        "method": "POST",
+        "summary": "Remove File From Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_knowledge_by_id_api_v1_knowledge__id__delete_delete",
+        "path": "/api/v1/knowledge/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "reset_knowledge_by_id_api_v1_knowledge__id__reset_post",
+        "path": "/api/v1/knowledge/{id}/reset",
+        "method": "POST",
+        "summary": "Reset Knowledge By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "add_files_to_knowledge_batch_api_v1_knowledge__id__files_batch_add_post",
+        "path": "/api/v1/knowledge/{id}/files/batch/add",
+        "method": "POST",
+        "summary": "Add Files To Knowledge Batch",
+        "description": "Add multiple files to a knowledge base",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_prompts_api_v1_prompts__get",
+        "path": "/api/v1/prompts/",
+        "method": "GET",
+        "summary": "Get Prompts",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_prompt_list_api_v1_prompts_list_get",
+        "path": "/api/v1/prompts/list",
+        "method": "GET",
+        "summary": "Get Prompt List",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_prompt_api_v1_prompts_create_post",
+        "path": "/api/v1/prompts/create",
+        "method": "POST",
+        "summary": "Create New Prompt",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_prompt_by_command_api_v1_prompts_command__command__get",
+        "path": "/api/v1/prompts/command/{command}",
+        "method": "GET",
+        "summary": "Get Prompt By Command",
+        "description": "",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Command"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_prompt_by_command_api_v1_prompts_command__command__update_post",
+        "path": "/api/v1/prompts/command/{command}/update",
+        "method": "POST",
+        "summary": "Update Prompt By Command",
+        "description": "",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Command"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_prompt_by_command_api_v1_prompts_command__command__delete_delete",
+        "path": "/api/v1/prompts/command/{command}/delete",
+        "method": "DELETE",
+        "summary": "Delete Prompt By Command",
+        "description": "",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Command"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_tools_api_v1_tools__get",
+        "path": "/api/v1/tools/",
+        "method": "GET",
+        "summary": "Get Tools",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_tool_list_api_v1_tools_list_get",
+        "path": "/api/v1/tools/list",
+        "method": "GET",
+        "summary": "Get Tool List",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "load_tool_from_url_api_v1_tools_load_url_post",
+        "path": "/api/v1/tools/load/url",
+        "method": "POST",
+        "summary": "Load Tool From Url",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "export_tools_api_v1_tools_export_get",
+        "path": "/api/v1/tools/export",
+        "method": "GET",
+        "summary": "Export Tools",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_tools_api_v1_tools_create_post",
+        "path": "/api/v1/tools/create",
+        "method": "POST",
+        "summary": "Create New Tools",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_tools_by_id_api_v1_tools_id__id__get",
+        "path": "/api/v1/tools/id/{id}",
+        "method": "GET",
+        "summary": "Get Tools By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_tools_by_id_api_v1_tools_id__id__update_post",
+        "path": "/api/v1/tools/id/{id}/update",
+        "method": "POST",
+        "summary": "Update Tools By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_tools_by_id_api_v1_tools_id__id__delete_delete",
+        "path": "/api/v1/tools/id/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Tools By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_tools_valves_by_id_api_v1_tools_id__id__valves_get",
+        "path": "/api/v1/tools/id/{id}/valves",
+        "method": "GET",
+        "summary": "Get Tools Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_tools_valves_spec_by_id_api_v1_tools_id__id__valves_spec_get",
+        "path": "/api/v1/tools/id/{id}/valves/spec",
+        "method": "GET",
+        "summary": "Get Tools Valves Spec By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_tools_valves_by_id_api_v1_tools_id__id__valves_update_post",
+        "path": "/api/v1/tools/id/{id}/valves/update",
+        "method": "POST",
+        "summary": "Update Tools Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_tools_user_valves_by_id_api_v1_tools_id__id__valves_user_get",
+        "path": "/api/v1/tools/id/{id}/valves/user",
+        "method": "GET",
+        "summary": "Get Tools User Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_tools_user_valves_spec_by_id_api_v1_tools_id__id__valves_user_spec_get",
+        "path": "/api/v1/tools/id/{id}/valves/user/spec",
+        "method": "GET",
+        "summary": "Get Tools User Valves Spec By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_tools_user_valves_by_id_api_v1_tools_id__id__valves_user_update_post",
+        "path": "/api/v1/tools/id/{id}/valves/user/update",
+        "method": "POST",
+        "summary": "Update Tools User Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_embeddings_api_v1_memories_ef_get",
+        "path": "/api/v1/memories/ef",
+        "method": "GET",
+        "summary": "Get Embeddings",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_memories_api_v1_memories__get",
+        "path": "/api/v1/memories/",
+        "method": "GET",
+        "summary": "Get Memories",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "add_memory_api_v1_memories_add_post",
+        "path": "/api/v1/memories/add",
+        "method": "POST",
+        "summary": "Add Memory",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "query_memory_api_v1_memories_query_post",
+        "path": "/api/v1/memories/query",
+        "method": "POST",
+        "summary": "Query Memory",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "reset_memory_from_vector_db_api_v1_memories_reset_post",
+        "path": "/api/v1/memories/reset",
+        "method": "POST",
+        "summary": "Reset Memory From Vector Db",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_memory_by_user_id_api_v1_memories_delete_user_delete",
+        "path": "/api/v1/memories/delete/user",
+        "method": "DELETE",
+        "summary": "Delete Memory By User Id",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_memory_by_id_api_v1_memories__memory_id__update_post",
+        "path": "/api/v1/memories/{memory_id}/update",
+        "method": "POST",
+        "summary": "Update Memory By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "memory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Memory Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_memory_by_id_api_v1_memories__memory_id__delete",
+        "path": "/api/v1/memories/{memory_id}",
+        "method": "DELETE",
+        "summary": "Delete Memory By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "memory_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Memory Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_folders_api_v1_folders__get",
+        "path": "/api/v1/folders/",
+        "method": "GET",
+        "summary": "Get Folders",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_folder_api_v1_folders__post",
+        "path": "/api/v1/folders/",
+        "method": "POST",
+        "summary": "Create Folder",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_folder_by_id_api_v1_folders__id__get",
+        "path": "/api/v1/folders/{id}",
+        "method": "GET",
+        "summary": "Get Folder By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_folder_by_id_api_v1_folders__id__delete",
+        "path": "/api/v1/folders/{id}",
+        "method": "DELETE",
+        "summary": "Delete Folder By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_folder_name_by_id_api_v1_folders__id__update_post",
+        "path": "/api/v1/folders/{id}/update",
+        "method": "POST",
+        "summary": "Update Folder Name By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_folder_parent_id_by_id_api_v1_folders__id__update_parent_post",
+        "path": "/api/v1/folders/{id}/update/parent",
+        "method": "POST",
+        "summary": "Update Folder Parent Id By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_folder_is_expanded_by_id_api_v1_folders__id__update_expanded_post",
+        "path": "/api/v1/folders/{id}/update/expanded",
+        "method": "POST",
+        "summary": "Update Folder Is Expanded By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_groups_api_v1_groups__get",
+        "path": "/api/v1/groups/",
+        "method": "GET",
+        "summary": "Get Groups",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_group_api_v1_groups_create_post",
+        "path": "/api/v1/groups/create",
+        "method": "POST",
+        "summary": "Create New Group",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_group_by_id_api_v1_groups_id__id__get",
+        "path": "/api/v1/groups/id/{id}",
+        "method": "GET",
+        "summary": "Get Group By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_group_by_id_api_v1_groups_id__id__update_post",
+        "path": "/api/v1/groups/id/{id}/update",
+        "method": "POST",
+        "summary": "Update Group By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_group_by_id_api_v1_groups_id__id__delete_delete",
+        "path": "/api/v1/groups/id/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Group By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "upload_file_api_v1_files__post",
+        "path": "/api/v1/files/",
+        "method": "POST",
+        "summary": "Upload File",
+        "description": "",
+        "parameters": [
+          {
+            "name": "process",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Process"
+            }
+          },
+          {
+            "name": "internal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Internal"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "list_files_api_v1_files__get",
+        "path": "/api/v1/files/",
+        "method": "GET",
+        "summary": "List Files",
+        "description": "",
+        "parameters": [
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Content"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "search_files_api_v1_files_search_get",
+        "path": "/api/v1/files/search",
+        "method": "GET",
+        "summary": "Search Files",
+        "description": "Search for files by filename with support for wildcard patterns.",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Filename pattern to search for. Supports wildcards such as '*.txt'",
+              "title": "Filename"
+            },
+            "description": "Filename pattern to search for. Supports wildcards such as '*.txt'"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Content"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_all_files_api_v1_files_all_delete",
+        "path": "/api/v1/files/all",
+        "method": "DELETE",
+        "summary": "Delete All Files",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_file_by_id_api_v1_files__id__get",
+        "path": "/api/v1/files/{id}",
+        "method": "GET",
+        "summary": "Get File By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_file_by_id_api_v1_files__id__delete",
+        "path": "/api/v1/files/{id}",
+        "method": "DELETE",
+        "summary": "Delete File By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_file_data_content_by_id_api_v1_files__id__data_content_get",
+        "path": "/api/v1/files/{id}/data/content",
+        "method": "GET",
+        "summary": "Get File Data Content By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_file_data_content_by_id_api_v1_files__id__data_content_update_post",
+        "path": "/api/v1/files/{id}/data/content/update",
+        "method": "POST",
+        "summary": "Update File Data Content By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_file_content_by_id_api_v1_files__id__content_get",
+        "path": "/api/v1/files/{id}/content",
+        "method": "GET",
+        "summary": "Get File Content By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "attachment",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Attachment"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_html_file_content_by_id_api_v1_files__id__content_html_get",
+        "path": "/api/v1/files/{id}/content/html",
+        "method": "GET",
+        "summary": "Get Html File Content By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_file_content_by_id_api_v1_files__id__content__file_name__get",
+        "path": "/api/v1/files/{id}/content/{file_name}",
+        "method": "GET",
+        "summary": "Get File Content By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_functions_api_v1_functions__get",
+        "path": "/api/v1/functions/",
+        "method": "GET",
+        "summary": "Get Functions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_functions_api_v1_functions_export_get",
+        "path": "/api/v1/functions/export",
+        "method": "GET",
+        "summary": "Get Functions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "load_function_from_url_api_v1_functions_load_url_post",
+        "path": "/api/v1/functions/load/url",
+        "method": "POST",
+        "summary": "Load Function From Url",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "sync_functions_api_v1_functions_sync_post",
+        "path": "/api/v1/functions/sync",
+        "method": "POST",
+        "summary": "Sync Functions",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_new_function_api_v1_functions_create_post",
+        "path": "/api/v1/functions/create",
+        "method": "POST",
+        "summary": "Create New Function",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_function_by_id_api_v1_functions_id__id__get",
+        "path": "/api/v1/functions/id/{id}",
+        "method": "GET",
+        "summary": "Get Function By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "toggle_function_by_id_api_v1_functions_id__id__toggle_post",
+        "path": "/api/v1/functions/id/{id}/toggle",
+        "method": "POST",
+        "summary": "Toggle Function By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "toggle_global_by_id_api_v1_functions_id__id__toggle_global_post",
+        "path": "/api/v1/functions/id/{id}/toggle/global",
+        "method": "POST",
+        "summary": "Toggle Global By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_function_by_id_api_v1_functions_id__id__update_post",
+        "path": "/api/v1/functions/id/{id}/update",
+        "method": "POST",
+        "summary": "Update Function By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_function_by_id_api_v1_functions_id__id__delete_delete",
+        "path": "/api/v1/functions/id/{id}/delete",
+        "method": "DELETE",
+        "summary": "Delete Function By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_function_valves_by_id_api_v1_functions_id__id__valves_get",
+        "path": "/api/v1/functions/id/{id}/valves",
+        "method": "GET",
+        "summary": "Get Function Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_function_valves_spec_by_id_api_v1_functions_id__id__valves_spec_get",
+        "path": "/api/v1/functions/id/{id}/valves/spec",
+        "method": "GET",
+        "summary": "Get Function Valves Spec By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_function_valves_by_id_api_v1_functions_id__id__valves_update_post",
+        "path": "/api/v1/functions/id/{id}/valves/update",
+        "method": "POST",
+        "summary": "Update Function Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_function_user_valves_by_id_api_v1_functions_id__id__valves_user_get",
+        "path": "/api/v1/functions/id/{id}/valves/user",
+        "method": "GET",
+        "summary": "Get Function User Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_function_user_valves_spec_by_id_api_v1_functions_id__id__valves_user_spec_get",
+        "path": "/api/v1/functions/id/{id}/valves/user/spec",
+        "method": "GET",
+        "summary": "Get Function User Valves Spec By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_function_user_valves_by_id_api_v1_functions_id__id__valves_user_update_post",
+        "path": "/api/v1/functions/id/{id}/valves/user/update",
+        "method": "POST",
+        "summary": "Update Function User Valves By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_config_api_v1_evaluations_config_get",
+        "path": "/api/v1/evaluations/config",
+        "method": "GET",
+        "summary": "Get Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_config_api_v1_evaluations_config_post",
+        "path": "/api/v1/evaluations/config",
+        "method": "POST",
+        "summary": "Update Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_all_feedbacks_api_v1_evaluations_feedbacks_all_get",
+        "path": "/api/v1/evaluations/feedbacks/all",
+        "method": "GET",
+        "summary": "Get All Feedbacks",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_all_feedbacks_api_v1_evaluations_feedbacks_all_delete",
+        "path": "/api/v1/evaluations/feedbacks/all",
+        "method": "DELETE",
+        "summary": "Delete All Feedbacks",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_all_feedbacks_api_v1_evaluations_feedbacks_all_export_get",
+        "path": "/api/v1/evaluations/feedbacks/all/export",
+        "method": "GET",
+        "summary": "Get All Feedbacks",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_feedbacks_api_v1_evaluations_feedbacks_user_get",
+        "path": "/api/v1/evaluations/feedbacks/user",
+        "method": "GET",
+        "summary": "Get Feedbacks",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "delete_feedbacks_api_v1_evaluations_feedbacks_delete",
+        "path": "/api/v1/evaluations/feedbacks",
+        "method": "DELETE",
+        "summary": "Delete Feedbacks",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_feedback_api_v1_evaluations_feedback_post",
+        "path": "/api/v1/evaluations/feedback",
+        "method": "POST",
+        "summary": "Create Feedback",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_feedback_by_id_api_v1_evaluations_feedback__id__get",
+        "path": "/api/v1/evaluations/feedback/{id}",
+        "method": "GET",
+        "summary": "Get Feedback By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "update_feedback_by_id_api_v1_evaluations_feedback__id__post",
+        "path": "/api/v1/evaluations/feedback/{id}",
+        "method": "POST",
+        "summary": "Update Feedback By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_feedback_by_id_api_v1_evaluations_feedback__id__delete",
+        "path": "/api/v1/evaluations/feedback/{id}",
+        "method": "DELETE",
+        "summary": "Delete Feedback By Id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_gravatar_api_v1_utils_gravatar_get",
+        "path": "/api/v1/utils/gravatar",
+        "method": "GET",
+        "summary": "Get Gravatar",
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "format_code_api_v1_utils_code_format_post",
+        "path": "/api/v1/utils/code/format",
+        "method": "POST",
+        "summary": "Format Code",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "execute_code_api_v1_utils_code_execute_post",
+        "path": "/api/v1/utils/code/execute",
+        "method": "POST",
+        "summary": "Execute Code",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_html_from_markdown_api_v1_utils_markdown_post",
+        "path": "/api/v1/utils/markdown",
+        "method": "POST",
+        "summary": "Get Html From Markdown",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "download_chat_as_pdf_api_v1_utils_pdf_post",
+        "path": "/api/v1/utils/pdf",
+        "method": "POST",
+        "summary": "Download Chat As Pdf",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "download_db_api_v1_utils_db_download_get",
+        "path": "/api/v1/utils/db/download",
+        "method": "GET",
+        "summary": "Download Db",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "download_litellm_config_yaml_api_v1_utils_litellm_config_get",
+        "path": "/api/v1/utils/litellm/config",
+        "method": "GET",
+        "summary": "Download Litellm Config Yaml",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_models_api_models_get",
+        "path": "/api/models",
+        "method": "GET",
+        "summary": "Get Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_base_models_api_models_base_get",
+        "path": "/api/models/base",
+        "method": "GET",
+        "summary": "Get Base Models",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "embeddings_api_embeddings_post",
+        "path": "/api/embeddings",
+        "method": "POST",
+        "summary": "Embeddings",
+        "description": "OpenAI-compatible embeddings endpoint.\n\nThis handler:\n  - Performs user/model checks and dispatches to the correct backend.\n  - Supports OpenAI, Ollama, arena models, pipelines, and any compatible provider.\n\nArgs:\n    request (Request): Request context.\n    form_data (dict): OpenAI-like payload (e.g., {\"model\": \"...\", \"input\": [...]})\n    user (UserModel): Authenticated user.\n\nReturns:\n    dict: OpenAI-compatible embeddings response.",
+        "parameters": []
+      },
+      {
+        "operation_id": "chat_completion_api_chat_completions_post",
+        "path": "/api/chat/completions",
+        "method": "POST",
+        "summary": "Chat Completion",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "chat_completed_api_chat_completed_post",
+        "path": "/api/chat/completed",
+        "method": "POST",
+        "summary": "Chat Completed",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "chat_action_api_chat_actions__action_id__post",
+        "path": "/api/chat/actions/{action_id}",
+        "method": "POST",
+        "summary": "Chat Action",
+        "description": "",
+        "parameters": [
+          {
+            "name": "action_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Action Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "stop_task_endpoint_api_tasks_stop__task_id__post",
+        "path": "/api/tasks/stop/{task_id}",
+        "method": "POST",
+        "summary": "Stop Task Endpoint",
+        "description": "",
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "list_tasks_endpoint_api_tasks_get",
+        "path": "/api/tasks",
+        "method": "GET",
+        "summary": "List Tasks Endpoint",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_tasks_by_chat_id_endpoint_api_tasks_chat__chat_id__get",
+        "path": "/api/tasks/chat/{chat_id}",
+        "method": "GET",
+        "summary": "List Tasks By Chat Id Endpoint",
+        "description": "",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_app_config_api_config_get",
+        "path": "/api/config",
+        "method": "GET",
+        "summary": "Get App Config",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_webhook_url_api_webhook_get",
+        "path": "/api/webhook",
+        "method": "GET",
+        "summary": "Get Webhook Url",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "update_webhook_url_api_webhook_post",
+        "path": "/api/webhook",
+        "method": "POST",
+        "summary": "Update Webhook Url",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_app_version_api_version_get",
+        "path": "/api/version",
+        "method": "GET",
+        "summary": "Get App Version",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_app_latest_release_version_api_version_updates_get",
+        "path": "/api/version/updates",
+        "method": "GET",
+        "summary": "Get App Latest Release Version",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_app_changelog_api_changelog_get",
+        "path": "/api/changelog",
+        "method": "GET",
+        "summary": "Get App Changelog",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "oauth_login_oauth__provider__login_get",
+        "path": "/oauth/{provider}/login",
+        "method": "GET",
+        "summary": "Oauth Login",
+        "description": "",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "oauth_callback_oauth__provider__callback_get",
+        "path": "/oauth/{provider}/callback",
+        "method": "GET",
+        "summary": "Oauth Callback",
+        "description": "",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Provider"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_manifest_json_manifest_json_get",
+        "path": "/manifest.json",
+        "method": "GET",
+        "summary": "Get Manifest Json",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_opensearch_xml_opensearch_xml_get",
+        "path": "/opensearch.xml",
+        "method": "GET",
+        "summary": "Get Opensearch Xml",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "healthcheck_health_get",
+        "path": "/health",
+        "method": "GET",
+        "summary": "Healthcheck",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "healthcheck_with_db_health_db_get",
+        "path": "/health/db",
+        "method": "GET",
+        "summary": "Healthcheck With Db",
+        "description": "",
+        "parameters": []
+      },
+      {
+        "operation_id": "serve_cache_file_cache__path__get",
+        "path": "/cache/{path}",
+        "method": "GET",
+        "summary": "Serve Cache File",
+        "description": "",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path"
+            }
+          }
+        ]
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.885565"
+  },
+  "openapi_84e9ba66": {
+    "id": "openapi_84e9ba66",
+    "name": "MCP Bridge Registry",
+    "base_url": "http://localhost:9000",
+    "openapi_url": "http://localhost:9000/openapi.json",
+    "description": "Central registry for OpenAPI to MCP bridges",
+    "endpoints": [
+      {
+        "operation_id": "root__get",
+        "path": "/",
+        "method": "GET",
+        "summary": "Root",
+        "description": "Registry service root endpoint",
+        "parameters": []
+      },
+      {
+        "operation_id": "get_stats_stats_get",
+        "path": "/stats",
+        "method": "GET",
+        "summary": "Get Stats",
+        "description": "Get registry statistics",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_servers_servers_get",
+        "path": "/servers",
+        "method": "GET",
+        "summary": "List Servers",
+        "description": "List all registered OpenAPI servers",
+        "parameters": []
+      },
+      {
+        "operation_id": "list_bridges_bridges_get",
+        "path": "/bridges",
+        "method": "GET",
+        "summary": "List Bridges",
+        "description": "List all MCP bridges",
+        "parameters": []
+      },
+      {
+        "operation_id": "create_bridge_bridges_post",
+        "path": "/bridges",
+        "method": "POST",
+        "summary": "Create Bridge",
+        "description": "Create a new MCP bridge",
+        "parameters": []
+      },
+      {
+        "operation_id": "start_bridge_bridges__bridge_id__start_post",
+        "path": "/bridges/{bridge_id}/start",
+        "method": "POST",
+        "summary": "Start Bridge",
+        "description": "Start an MCP bridge",
+        "parameters": [
+          {
+            "name": "bridge_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bridge Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "stop_bridge_bridges__bridge_id__stop_post",
+        "path": "/bridges/{bridge_id}/stop",
+        "method": "POST",
+        "summary": "Stop Bridge",
+        "description": "Stop an MCP bridge",
+        "parameters": [
+          {
+            "name": "bridge_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bridge Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "get_bridge_bridges__bridge_id__get",
+        "path": "/bridges/{bridge_id}",
+        "method": "GET",
+        "summary": "Get Bridge",
+        "description": "Get bridge details",
+        "parameters": [
+          {
+            "name": "bridge_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bridge Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "delete_bridge_bridges__bridge_id__delete",
+        "path": "/bridges/{bridge_id}",
+        "method": "DELETE",
+        "summary": "Delete Bridge",
+        "description": "Delete an MCP bridge",
+        "parameters": [
+          {
+            "name": "bridge_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bridge Id"
+            }
+          }
+        ]
+      },
+      {
+        "operation_id": "discover_server_discover_post",
+        "path": "/discover",
+        "method": "POST",
+        "summary": "Discover Server",
+        "description": "Discover an OpenAPI server at the given base URL",
+        "parameters": [
+          {
+            "name": "base_url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Base Url"
+            }
+          }
+        ]
+      }
+    ],
+    "status": "online",
+    "last_seen": "2025-06-18T13:16:15.905104"
+  }
+}
