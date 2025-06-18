@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""
+MCP Manager - OpenAPI to MCP Bridge Management Tool
+
+Provides convenient access to all MCP setup and management operations.
+"""
+
+import sys
+import subprocess
+from pathlib import Path
+
+def main():
+    if len(sys.argv) < 2:
+        print("""
+MCP Manager - OpenAPI to MCP Bridge Management
+
+Usage: ./mcp-manager <command> [args...]
+
+Commands:
+  setup-system         Run complete MCP system setup
+  setup-openwebui      Setup OpenWebUI MCP integration  
+  setup-bidirectional  Setup bidirectional bridge
+  discover             Discover running OpenAPI servers
+  discover-launchctl   Discover launchctl OpenAPI servers
+
+Examples:
+  ./mcp-manager setup-system
+  ./mcp-manager discover --register
+  ./mcp-manager setup-openwebui --help
+""")
+        sys.exit(1)
+    
+    command = sys.argv[1]
+    args = sys.argv[2:]
+    
+    script_dir = Path(__file__).parent
+    
+    script_map = {
+        'setup-system': script_dir / 'setup-mcp-system.py',
+        'setup-openwebui': script_dir / 'setup-openwebui-mcp.py', 
+        'setup-bidirectional': script_dir / 'setup-bidirectional-bridge.py',
+        'discover': script_dir / 'discover-servers.py',
+        'discover-launchctl': script_dir / 'discover-launchctl-servers.py'
+    }
+    
+    if command not in script_map:
+        print(f"Unknown command: {command}")
+        sys.exit(1)
+    
+    script_path = script_map[command]
+    if not script_path.exists():
+        print(f"Script not found: {script_path}")
+        sys.exit(1)
+    
+    # Execute the script with the provided arguments
+    cmd = ['python3', str(script_path)] + args
+    try:
+        result = subprocess.run(cmd, check=True)
+        sys.exit(result.returncode)
+    except subprocess.CalledProcessError as e:
+        sys.exit(e.returncode)
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by user")
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()
+
