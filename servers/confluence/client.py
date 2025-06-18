@@ -5,7 +5,8 @@ from urllib.parse import urljoin
 import logging
 from models import (
     CreatePageRequest, UpdatePageRequest, PageResponse, 
-    ConfluenceError, AuthConfig, SpaceInfo, PageListResponse
+    ConfluenceError, AuthConfig, SpaceInfo, PageListResponse,
+    CreateSpaceRequest
 )
 
 logger = logging.getLogger(__name__)
@@ -29,8 +30,8 @@ class ConfluenceAPIClient:
             "Content-Type": "application/json"
         }
         
-        # API v2 base URL
-        self.api_base = urljoin(self.base_url, "/wiki/api/v2")
+        # API base URL - use the standard REST API endpoint
+        self.api_base = urljoin(self.base_url, "/wiki/rest/api")
         
         # HTTP client with timeouts
         self.client = httpx.Client(
@@ -74,13 +75,13 @@ class ConfluenceAPIClient:
     def test_connection(self) -> Dict[str, Any]:
         """Test the API connection and authentication"""
         try:
-            url = urljoin(self.api_base, "/spaces")
+            url = f"{self.api_base}/space"
             response = self.client.get(url, params={"limit": 1})
             data = self._handle_response(response)
             return {
                 "success": True,
                 "message": "Connection successful",
-                "api_version": "v2",
+                "api_version": "v1",
                 "base_url": self.base_url
             }
         except ConfluenceError as e:
@@ -92,7 +93,7 @@ class ConfluenceAPIClient:
     
     def get_spaces(self, limit: int = 25) -> List[SpaceInfo]:
         """Get list of spaces"""
-        url = urljoin(self.api_base, "/spaces")
+        url = f"{self.api_base}/space"
         response = self.client.get(url, params={"limit": limit})
         data = self._handle_response(response)
         
@@ -114,6 +115,34 @@ class ConfluenceAPIClient:
             if space.key.lower() == space_key.lower():
                 return space
         return None
+    
+    def create_space(self, request: CreateSpaceRequest) -> SpaceInfo:
+        """Create a new space in Confluence"""
+        body_data = {
+            "key": request.key.upper(),  # Space keys should be uppercase
+            "name": request.name,
+            "type": "global"  # Default to global space type
+        }
+        
+        if request.description:
+            body_data["description"] = {
+                "representation": "plain",
+                "value": request.description
+            }
+        
+        logger.info(f"Creating space with data: {body_data}")
+        
+        url = urljoin(self.api_base, "/spaces")
+        response = self.client.post(url, json=body_data)
+        data = self._handle_response(response)
+        
+        return SpaceInfo(
+            id=str(data["id"]),
+            key=data["key"],
+            name=data["name"],
+            type=data.get("type", "global"),
+            status=data.get("status", "current")
+        )
     
     def create_page(
         self, 
@@ -158,13 +187,39 @@ class ConfluenceAPIClient:
                 "value": request.body.value
             }
         
-        logger.info(f"Creating page with data: {body_data}")
+        # For REST API v1, we need to restructure the data
+        # Convert space ID to space key if needed
+        space_key = request.spaceId
+        if isinstance(request.spaceId, int) or str(request.spaceId).isdigit():
+            # Look up space key by ID
+            spaces = self.get_spaces(limit=250)
+            for space in spaces:
+                if str(space.id) == str(request.spaceId):
+                    space_key = space.key
+                    break
         
-        url = urljoin(self.api_base, "/pages")
-        response = self.client.post(url, json=body_data, params=params)
+        rest_body_data = {
+            "type": "page",
+            "title": request.title,
+            "space": {"key": space_key},
+            "body": {
+                "storage": {
+                    "value": request.body.value if request.body else "",
+                    "representation": "storage"
+                }
+            }
+        }
+        
+        if request.parentId:
+            rest_body_data["ancestors"] = [{"id": str(request.parentId)}]
+        
+        logger.info(f"Creating page with data: {rest_body_data}")
+        
+        url = f"{self.api_base}/content"
+        response = self.client.post(url, json=rest_body_data)
         data = self._handle_response(response)
         
-        return self._parse_page_response(data)
+        return self._parse_rest_api_page_response(data)
     
     def get_page(self, page_id: str, include_body: bool = True) -> PageResponse:
         """Get a page by ID"""
@@ -283,6 +338,43 @@ class ConfluenceAPIClient:
             parentId=str(data["parentId"]) if data.get("parentId") else None,
             authorId=data.get("authorId", ""),
             createdAt=data.get("createdAt", ""),
+            version=version,
+            body=body,
+            links=data.get("_links")
+        )
+    
+    def _parse_rest_api_page_response(self, data: Dict[str, Any]) -> PageResponse:
+        """Parse page data from REST API v1 response"""
+        from models import PageBody, Version, BodyRepresentation, PageStatus
+        
+        # Parse body if present
+        body = None
+        if "body" in data and "storage" in data["body"]:
+            body = PageBody(
+                representation=BodyRepresentation.storage,
+                value=data["body"]["storage"]["value"]
+            )
+        
+        # Parse version
+        version_data = data.get("version", {"number": 1})
+        version = Version(
+            number=version_data.get("number", 1),
+            message=version_data.get("message")
+        )
+        
+        # Extract space ID from space object
+        space_id = ""
+        if "space" in data:
+            space_id = str(data["space"].get("id", ""))
+        
+        return PageResponse(
+            id=str(data["id"]),
+            status=PageStatus(data.get("status", "current")),
+            title=data.get("title", ""),
+            spaceId=space_id,
+            parentId=None,  # REST API v1 handles this differently
+            authorId=data.get("history", {}).get("createdBy", {}).get("accountId", ""),
+            createdAt=data.get("history", {}).get("createdDate", ""),
             version=version,
             body=body,
             links=data.get("_links")
