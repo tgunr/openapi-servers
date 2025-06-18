@@ -25,10 +25,14 @@ import logging
 from typing import Optional, List
 import os
 from functools import lru_cache
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from models import (
     CreatePageRequest, UpdatePageRequest, PageResponse, AuthConfig,
-    ConfluenceError, SpaceInfo, PageListResponse
+    ConfluenceError, SpaceInfo, PageListResponse, CreateSpaceRequest
 )
 from client import ConfluenceAPIClient
 
@@ -227,6 +231,20 @@ async def list_spaces(
 ):
     """List available Confluence spaces"""
     return client.get_spaces(limit=limit)
+
+
+@app.post("/spaces", response_model=SpaceInfo, tags=["Spaces"])
+async def create_space(
+    request: CreateSpaceRequest,
+    client: ConfluenceAPIClient = Depends(get_confluence_client)
+):
+    """Create a new Confluence space
+    
+    - **key**: Space key (must be unique, alphanumeric, and uppercase)
+    - **name**: Space name
+    - **description**: Optional space description
+    """
+    return client.create_space(request)
 
 
 @app.get("/spaces/{space_key}", response_model=Optional[SpaceInfo], tags=["Spaces"])
